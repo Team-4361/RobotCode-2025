@@ -61,7 +61,7 @@ import static frc.robot.Constants.Systems.FRONT_CAMERA;
 import static frc.robot.Constants.Systems.SHOOTER_CAMERA;
 //import static frc.robot.subsystems.ClimberSubsystem.MoveDirection.UP;
 import static frc.robot.util.math.GlobalUtils.deadband;
-
+//FIX AUTO STUFF
 
 /**
  * The VM is configured to automatically run this class, and to call the methods corresponding to
@@ -84,7 +84,7 @@ public class Robot extends TimedRobot {
     //public static ClimberSubsystem climber;
    // public static FingerSubsystem arm;
 
-    private SendableChooser<Command> autoChooser;
+    //private SendableChooser<Command> autoChooser;
 
     private void startDriverCamera() {
         int width = 360;
@@ -187,8 +187,8 @@ public class Robot extends TimedRobot {
                 Robot.swerve
         );
 */
-        autoChooser = AutoBuilder.buildAutoChooser();
-        SmartDashboard.putData("Auto Chooser", autoChooser);
+        //autoChooser = AutoBuilder.buildAutoChooser();
+        //SmartDashboard.putData("Auto Chooser", autoChooser);
 
         this.configureBindings();
     }
