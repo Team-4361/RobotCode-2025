@@ -14,7 +14,7 @@ import static frc.robot.util.math.GlobalUtils.deadband;
 
 public class DriveCommand extends Command {
     private long nextCheck;
-    private boolean flipXY = true;
+    private boolean flipXY = false; //changed from true -> false
 
     public DriveCommand() {
         addRequirements(Robot.swerve);

@@ -35,35 +35,20 @@ public class Constants {
                 true,
                 true
         );
-        public static final SubsystemConfig SHOOTER_CAMERA = new SubsystemConfig(
-                "ShootCamera",
-                false,
-                false
-        );
-        public static final SubsystemConfig SHOOTER = new SubsystemConfig(
-                "Shooter",
+        public static final SubsystemConfig CORAL = new SubsystemConfig(
+                "Coral",
                 MK4_CHASSIS,
                 true
         );
-        public static final SubsystemConfig INDEX = new SubsystemConfig(
-                "Index",
-                MK4_CHASSIS,
-                false
-        );
-        public static final SubsystemConfig INTAKE = new SubsystemConfig(
-                "Intake",
-                MK4_CHASSIS,
-                false
-        );
-        public static final SubsystemConfig FINGER = new SubsystemConfig(
-                "Finger",
-                MK4_CHASSIS,
-                false
-        );
         public static final SubsystemConfig CLIMBER = new SubsystemConfig(
-                "Climber",
-                MK4_CHASSIS,
-                false
+            null, 
+            MK4_CHASSIS, 
+            true
+        );
+        public static final SubsystemConfig ALGAE = new SubsystemConfig(
+            null, 
+            MK4_CHASSIS, 
+            false
         );
         public static final SubsystemConfig SWERVE = new SubsystemConfig(
                 "Swerve",

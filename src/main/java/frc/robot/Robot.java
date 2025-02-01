@@ -52,13 +52,13 @@ import static frc.robot.Constants.Chassis.SIDE_LENGTH_METERS;
 import static frc.robot.Constants.Control.*;
 import static frc.robot.Constants.Power.POWER_CAN_ID;
 import static frc.robot.Constants.Power.POWER_MODULE_TYPE;
-import static frc.robot.Constants.Presets.TRAP_PRESET_GROUP;
-import static frc.robot.Constants.Shooter.SHOOT_SPEED;
+//import static frc.robot.Constants.Presets.TRAP_PRESET_GROUP;
+//import static frc.robot.Constants.Shooter.SHOOT_SPEED;
 import static frc.robot.Constants.FrontCamera.*;
 //import static frc.robot.Constants.ShooterCamera.SHOOTER_PIPELINES;
 //import static frc.robot.Constants.ShooterCamera.SHOOT_CAMERA_TRANSFORM;
 import static frc.robot.Constants.Systems.FRONT_CAMERA;
-import static frc.robot.Constants.Systems.SHOOTER_CAMERA;
+//import static frc.robot.Constants.Systems.SHOOTER_CAMERA;
 //import static frc.robot.subsystems.ClimberSubsystem.MoveDirection.UP;
 import static frc.robot.util.math.GlobalUtils.deadband;
 //FIX AUTO STUFF
@@ -214,7 +214,7 @@ public class Robot extends TimedRobot {
     private void configureBindings() {
 
         Command teleopFlightDriveCommand = Robot.swerve.driveCommand(
-                () -> -deadband(leftStick.getY()), // +X forward | -X reverse
+                () -> deadband(leftStick.getY()), // +X forward | -X reverse
                 () -> -deadband(leftStick.getX()), // +Y left | -Y right
                 () -> -deadband(rightStick.getTwist())); // CCW positive
 
@@ -228,6 +228,7 @@ public class Robot extends TimedRobot {
         Robot.swerve.setDefaultCommand(teleopFlightDriveCommand);
 
         leftStick.button(11).onTrue(Robot.resetAllCommand());}
+        //if(System.out.println();}
         //leftStick.trigger().whileTrue(swerve.toggleSlowModeCommand());
 
         /*leftStick.button(4).whileTrue(Commands.runEnd(

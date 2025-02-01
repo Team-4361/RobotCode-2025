@@ -42,7 +42,7 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
     //private final Alert focDisabledAlert;
     private final SwerveDrive swerveDrive;
 
-    public boolean fieldOriented = true;
+    public boolean fieldOriented = false;
     public boolean slowMode = false;
 
     public boolean hasResetGyro = false;
@@ -82,11 +82,15 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
 
         setDashUpdate(() -> {
             if (isTuningEnabled()) {
-                SmartDashboard.putNumber("FL Turn", swerveDrive.getModuleMap().get("frontleft").getAbsolutePosition());
+               /*SmartDashboard.putNumber("FL Turn", swerveDrive.getModuleMap().get("frontleft").getAbsolutePosition());
                 SmartDashboard.putNumber("FR Turn", swerveDrive.getModuleMap().get("frontright").getAbsolutePosition());
                 SmartDashboard.putNumber("BL Turn", swerveDrive.getModuleMap().get("backleft").getAbsolutePosition());
                 SmartDashboard.putNumber("BR Turn", swerveDrive.getModuleMap().get("backright").getAbsolutePosition());
-            }
+            */}
+            SmartDashboard.putNumber("FL Turn", swerveDrive.getModuleMap().get("frontleft").getAbsolutePosition());
+            SmartDashboard.putNumber("FR Turn", swerveDrive.getModuleMap().get("frontright").getAbsolutePosition());
+            SmartDashboard.putNumber("BL Turn", swerveDrive.getModuleMap().get("backleft").getAbsolutePosition());
+            SmartDashboard.putNumber("BR Turn", swerveDrive.getModuleMap().get("backright").getAbsolutePosition());
             SmartDashboard.putString("Pose", getPose().toString());
             //focDisabledAlert.set(!fieldOriented);
         });
@@ -165,7 +169,7 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
             double rotation,
             boolean fieldRelative,
             boolean isOpenLoop) {
-        swerveDrive.drive(translation, rotation, fieldRelative, isOpenLoop);
+        swerveDrive.drive(translation, rotation, false, isOpenLoop);
     }
 
     public double getMaximumVelocity() { return swerveDrive.getMaximumChassisVelocity(); }
@@ -193,7 +197,7 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
             }*/
             swerveDrive.drive(
                     new Translation2d(
-                            Math.pow(tX, 3) * swerveDrive.getMaximumChassisVelocity(),
+                            Math.pow(-tX, 3) * swerveDrive.getMaximumChassisVelocity(),
                             Math.pow(tY, 3) * swerveDrive.getMaximumChassisVelocity()
                     ),
                     Math.pow(tO, 3) * swerveDrive.getMaximumChassisAngularVelocity(),
