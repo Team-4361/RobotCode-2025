@@ -1,6 +1,7 @@
 package frc.robot.subsystems.base;
 
-import com.pathplanner.lib.config.PIDConstants;
+//import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.controller.PIDConstants;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
