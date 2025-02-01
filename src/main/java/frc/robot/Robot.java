@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.subsystems.SwerveDriveSubsystem;
+import frc.robot.subsystems.algaesubsystem;
 
 //import frc.robot.commands.intake.AmpCommand;
 //import frc.robot.commands.intake.AutoIntakeNoteCommand;
@@ -76,6 +77,7 @@ public class Robot extends TimedRobot {
 
     public static PowerDistribution pdh;
     public static SwerveDriveSubsystem swerve;
+    private final algaesubsystem algae = new algaesubsystem(); //declaring variable for algae subsystem command
     //public static PhotonCameraModule frontCamera;
     //public static PhotonCameraModule shooterCamera;
     //public static ShooterSubsystem shooter;
@@ -211,7 +213,7 @@ public class Robot extends TimedRobot {
      * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
      * joysticks}.
      */
-    private void configureBindings() {
+    private void configureBindings() { 
 
         Command teleopFlightDriveCommand = Robot.swerve.driveCommand(
                 () -> deadband(leftStick.getY()), // +X forward | -X reverse
@@ -224,8 +226,17 @@ public class Robot extends TimedRobot {
                 () -> -deadband(xbox.getRightX())
         );
 
-        //Robot.swerve.setDefaultCommand(new DriveCommand()); // will be set this way on real robot.
+        //Robot.swerve.setDefaultCommand(new DriveCommand()); // will be set this way on real robot.😉
         Robot.swerve.setDefaultCommand(teleopFlightDriveCommand);
+
+
+        Trigger rightTrigger = new Trigger(() -> xbox.getRightTriggerAxis() > 0.5);
+        Trigger leftTrigger  = new Trigger(() -> xbox.getLeftTriggerAxis()  > 0.5);
+
+
+        rightTrigger.whileTrue(new AlgaeExtrudeCommand(algae));
+
+        leftTrigger.whileTrue(new AlgaeSuckCommand(algae));
 
         leftStick.button(11).onTrue(Robot.resetAllCommand());}
         //if(System.out.println();}
@@ -297,3 +308,5 @@ public class Robot extends TimedRobot {
     public class swerve {
     }
 }
+
+//stay sigma & skibidi 😉😉 -sigma team

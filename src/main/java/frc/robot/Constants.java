@@ -75,6 +75,14 @@ public class Constants {
         //public static final PIDConstants SHOOT_PID = new PIDConstants(0.1, 0, 0);
     }
 
+    public static class Algae {
+        public static final int LEFT_MOTOR_ID = 6;  // Set to your left motor's CAN ID
+        public static final int RIGHT_MOTOR_ID = 29; // Set to your right motor's CAN ID
+        public static final double ALGAE_SPEED = 0.75; //motorspeed
+
+
+    }
+
     /** This {@link Indexer} class represents all values regarding the {@link Robot}'s cameraIndex mechanism. */
     public static class Indexer {
         public static final int INDEX_LEFT_MOTOR_ID = 11;
@@ -170,7 +178,7 @@ public class Constants {
             TRAP_ARM_PRESETS.put("One", 3.0);
             TRAP_ARM_PRESETS.put("Two", 12.0);
 
-            // TODO: add real entries!
+            
             //Robot.arm.registerExtensionPresets(TRAP_ARM_PRESETS);
             //Robot.arm.registerAnglePresets(TRAP_ARM_ANGLE_PRESETS);
             //Robot.wrist.registerPresets(TRAP_WRIST_PRESETS);
