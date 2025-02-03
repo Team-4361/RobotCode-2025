@@ -18,11 +18,14 @@ import swervelib.SwerveModule;
 import swervelib.parser.SwerveParser;
 //import swervelib.telemetry.Alert;
 import swervelib.telemetry.SwerveDriveTelemetry;
+import edu.wpi.first.math.MathUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.function.DoubleSupplier;
+
+import com.studica.frc.AHRS;
 
 import static edu.wpi.first.wpilibj.Filesystem.getDeployDirectory;
 import static frc.robot.Constants.Chassis.*;
@@ -73,7 +76,7 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
         //this.focDisabledAlert = new Alert("Swerve FOC disabled!", Alert.AlertType.WARNING);
 
         swerveDrive.setHeadingCorrection(true);
-        swerveDrive.setCosineCompensator(false);
+        swerveDrive.setCosineCompensator(true); //true? 2/1/2025
         swerveDrive.setMotorIdleMode(true);
         SwerveDriveTelemetry.verbosity = isTuningEnabled() ? HIGH : MACHINE;
 
@@ -86,7 +89,23 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
                 SmartDashboard.putNumber("FR Turn", swerveDrive.getModuleMap().get("frontright").getAbsolutePosition());
                 SmartDashboard.putNumber("BL Turn", swerveDrive.getModuleMap().get("backleft").getAbsolutePosition());
                 SmartDashboard.putNumber("BR Turn", swerveDrive.getModuleMap().get("backright").getAbsolutePosition());
+<<<<<<< HEAD
             }
+=======
+            */}
+            SmartDashboard.putNumber("FL Turn", swerveDrive.getModuleMap().get("frontleft").getAbsolutePosition());
+            SmartDashboard.putNumber("FR Turn", swerveDrive.getModuleMap().get("frontright").getAbsolutePosition());
+            SmartDashboard.putNumber("BL Turn", swerveDrive.getModuleMap().get("backleft").getAbsolutePosition());
+            SmartDashboard.putNumber("BR Turn", swerveDrive.getModuleMap().get("backright").getAbsolutePosition());
+            SmartDashboard.putNumber("FL 90", swerveDrive.getModuleMap().get("frontleft").getAbsolutePosition() - 195.1);
+            SmartDashboard.putNumber("FR 90", swerveDrive.getModuleMap().get("frontright").getAbsolutePosition()- 180.63 );
+            SmartDashboard.putNumber("BL 90", swerveDrive.getModuleMap().get("backleft").getAbsolutePosition()- 183.8);
+            SmartDashboard.putNumber("BR 90", swerveDrive.getModuleMap().get("backright").getAbsolutePosition()-179.8);
+
+
+            
+
+>>>>>>> ab505a6 (gog can code!)
             SmartDashboard.putString("Pose", getPose().toString());
             //focDisabledAlert.set(!fieldOriented);
         });
@@ -115,21 +134,25 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
                 });
     }
 
-    /*
+    
     public ChassisSpeeds calculateSpeedsToPose(Translation2d currentPose, Translation2d desiredPose, boolean usePhoton) {
         PIDController driveController, turnController;
         double mX, mO;
 
         if (usePhoton) {
-            driveController = Robot.shooterCamera.getDriveController();
-            turnController = Robot.shooterCamera.getTurnController();
-            mX = Robot.shooterCamera.getMaxDrivePower();
+            //driveController = Robot.shooterCamera.getDriveController();
+            //turnController = Robot.shooterCamera.getTurnController();
+            //mX = Robot.shooterCamera.getMaxDrivePower();
             mO = PHOTON_TURN_MAX_SPEED;
         } else {
-            driveController = Robot.swerve.getAutoDrivePID();
-            turnController = Robot.swerve.getAutoTurnPID();
-            mX = Robot.swerve.getMaxAutoDriveSpeed();
-            mO = AUTO_TURN_MAX_SPEED;
+            //driveController = Robot.swerve.getAutoDrivePID();
+            driveController = new PIDController(7.5, 0, 0);
+            //turnController = Robot.swerve.getAutoTurnPID();
+            turnController = new PIDController(2.5, 0, 0);
+            //mX = Robot.swerve.getMaxAutoDriveSpeed();
+            mX = 0.5;
+            mO = 0.2;
+            //mO = AUTO_TURN_MAX_SPEED;
         }
 
         double jX = MathUtil.clamp(driveController.calculate(currentPose.getX(), desiredPose.getX()), -mX, mX);
@@ -137,7 +160,7 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
         double jO = MathUtil.clamp(
                 turnController.calculate(
                         currentPose.getRotation().getRadians(),
-                        desiredPose.getRotation().getRadians()
+                        //desiredPose.getRotation().getRadians()
                 ),
                 -mO,
                 mO
@@ -148,7 +171,7 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
                 jO * MAX_SPEED_MPS
         );
     }
-     */
+     
 
     public void setStates(SwerveModuleState[] states) { swerveDrive.setModuleStates(states, false); }
 

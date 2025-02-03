@@ -52,7 +52,7 @@ public class DriveCommand extends Command {
 
         Robot.swerve.rawDrive(
                 new Translation2d(
-                        Math.pow(tX, 3) * Robot.swerve.getMaximumVelocity(),
+                        Math.pow(-tX, 3) * Robot.swerve.getMaximumVelocity(),
                         Math.pow(tY, 3) * Robot.swerve.getMaximumVelocity()
                 ),
                 Math.pow(tOmega, 3) * Robot.swerve.getMaximumAngularVelocity(),
