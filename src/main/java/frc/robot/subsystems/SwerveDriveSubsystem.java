@@ -18,11 +18,14 @@ import swervelib.SwerveModule;
 import swervelib.parser.SwerveParser;
 //import swervelib.telemetry.Alert;
 import swervelib.telemetry.SwerveDriveTelemetry;
+import edu.wpi.first.math.MathUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.function.DoubleSupplier;
+
+import com.studica.frc.AHRS;
 
 import static edu.wpi.first.wpilibj.Filesystem.getDeployDirectory;
 import static frc.robot.Constants.Chassis.*;
@@ -47,7 +50,7 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
 
     public boolean hasResetGyro = false;
 
-    //private final PIDController autoDrivePID, autoTurnPID;
+    private final PIDController autoDrivePID, autoTurnPID;
 
     public Pose2d getPose() { return swerveDrive.getPose(); }
     public ChassisSpeeds getRobotVelocity() { return swerveDrive.getRobotVelocity(); }
@@ -73,12 +76,12 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
         //this.focDisabledAlert = new Alert("Swerve FOC disabled!", Alert.AlertType.WARNING);
 
         swerveDrive.setHeadingCorrection(true);
-        swerveDrive.setCosineCompensator(false);
+        swerveDrive.setCosineCompensator(true); //true? 2/1/2025
         swerveDrive.setMotorIdleMode(true);
         SwerveDriveTelemetry.verbosity = isTuningEnabled() ? HIGH : MACHINE;
 
-//        this.autoDrivePID = registerPID("AutoDrivePID", AUTO_DRIVE_PID);
-//        this.autoTurnPID = registerPID("AutoTurnPID", AUTO_TURN_PID);
+       this.autoDrivePID = registerPID("AutoDrivePID", AUTO_DRIVE_PID);
+       this.autoTurnPID = registerPID("AutoTurnPID", AUTO_TURN_PID);
 
         setDashUpdate(() -> {
             if (isTuningEnabled()) {
@@ -115,21 +118,28 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
                 });
     }
 
-    /*
-    public ChassisSpeeds calculateSpeedsToPose(Translation2d currentPose, Translation2d desiredPose, boolean usePhoton) {
+    
+    @SuppressWarnings("resource")
+    public ChassisSpeeds calculateSpeedsToPose(Pose2d currentPose, Pose2d desiredPose, boolean usePhoton) {
         PIDController driveController, turnController;
         double mX, mO;
 
         if (usePhoton) {
-            driveController = Robot.shooterCamera.getDriveController();
-            turnController = Robot.shooterCamera.getTurnController();
-            mX = Robot.shooterCamera.getMaxDrivePower();
+            driveController = new PIDController(7.5, 0, 0);
+            //turnController = Robot.shooterCamera.getTurnController();
+            turnController = new PIDController(2.5, 0, 0);
+            //mX = Robot.shooterCamera.getMaxDrivePower();
+            mX = PHOTON_DRIVE_MAX_SPEED;
             mO = PHOTON_TURN_MAX_SPEED;
         } else {
-            driveController = Robot.swerve.getAutoDrivePID();
-            turnController = Robot.swerve.getAutoTurnPID();
-            mX = Robot.swerve.getMaxAutoDriveSpeed();
-            mO = AUTO_TURN_MAX_SPEED;
+            //driveController = Robot.swerve.getAutoDrivePID();
+            driveController = new PIDController(7.5, 0, 0);
+            //turnController = Robot.swerve.getAutoTurnPID();
+            turnController = new PIDController(2.5, 0, 0);
+            //mX = Robot.swerve.getMaxAutoDriveSpeed();
+            mX = 0.5;
+            mO = 0.2;
+            //mO = AUTO_TURN_MAX_SPEED;
         }
 
         double jX = MathUtil.clamp(driveController.calculate(currentPose.getX(), desiredPose.getX()), -mX, mX);
@@ -148,7 +158,7 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
                 jO * MAX_SPEED_MPS
         );
     }
-     */
+     
 
     public void setStates(SwerveModuleState[] states) { swerveDrive.setModuleStates(states, false); }
 

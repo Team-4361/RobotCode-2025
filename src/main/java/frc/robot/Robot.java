@@ -9,6 +9,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 //import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 //import com.pathplanner.lib.util.ReplanningConfig;
+//import com.pathplanner.lib.auto.HolonomicPathFollowerConfig;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
@@ -61,6 +62,7 @@ import static frc.robot.Constants.Systems.FRONT_CAMERA;
 import static frc.robot.Constants.Systems.SHOOTER_CAMERA;
 //import static frc.robot.subsystems.ClimberSubsystem.MoveDirection.UP;
 import static frc.robot.util.math.GlobalUtils.deadband;
+
 //FIX AUTO STUFF
 
 /**
@@ -185,8 +187,8 @@ public class Robot extends TimedRobot {
                     return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
                 },
                 Robot.swerve
-        );
-*/
+        );*/
+
         //autoChooser = AutoBuilder.buildAutoChooser();
         //SmartDashboard.putData("Auto Chooser", autoChooser);
 
