@@ -50,7 +50,7 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
 
     public boolean hasResetGyro = false;
 
-    //private final PIDController autoDrivePID, autoTurnPID;
+    private final PIDController autoDrivePID, autoTurnPID;
 
     public Pose2d getPose() { return swerveDrive.getPose(); }
     public ChassisSpeeds getRobotVelocity() { return swerveDrive.getRobotVelocity(); }
@@ -80,8 +80,8 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
         swerveDrive.setMotorIdleMode(true);
         SwerveDriveTelemetry.verbosity = isTuningEnabled() ? HIGH : MACHINE;
 
-//        this.autoDrivePID = registerPID("AutoDrivePID", AUTO_DRIVE_PID);
-//        this.autoTurnPID = registerPID("AutoTurnPID", AUTO_TURN_PID);
+       this.autoDrivePID = registerPID("AutoDrivePID", AUTO_DRIVE_PID);
+       this.autoTurnPID = registerPID("AutoTurnPID", AUTO_TURN_PID);
 
         setDashUpdate(() -> {
             if (isTuningEnabled()) {
@@ -89,23 +89,7 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
                 SmartDashboard.putNumber("FR Turn", swerveDrive.getModuleMap().get("frontright").getAbsolutePosition());
                 SmartDashboard.putNumber("BL Turn", swerveDrive.getModuleMap().get("backleft").getAbsolutePosition());
                 SmartDashboard.putNumber("BR Turn", swerveDrive.getModuleMap().get("backright").getAbsolutePosition());
-<<<<<<< HEAD
             }
-=======
-            */}
-            SmartDashboard.putNumber("FL Turn", swerveDrive.getModuleMap().get("frontleft").getAbsolutePosition());
-            SmartDashboard.putNumber("FR Turn", swerveDrive.getModuleMap().get("frontright").getAbsolutePosition());
-            SmartDashboard.putNumber("BL Turn", swerveDrive.getModuleMap().get("backleft").getAbsolutePosition());
-            SmartDashboard.putNumber("BR Turn", swerveDrive.getModuleMap().get("backright").getAbsolutePosition());
-            SmartDashboard.putNumber("FL 90", swerveDrive.getModuleMap().get("frontleft").getAbsolutePosition() - 195.1);
-            SmartDashboard.putNumber("FR 90", swerveDrive.getModuleMap().get("frontright").getAbsolutePosition()- 180.63 );
-            SmartDashboard.putNumber("BL 90", swerveDrive.getModuleMap().get("backleft").getAbsolutePosition()- 183.8);
-            SmartDashboard.putNumber("BR 90", swerveDrive.getModuleMap().get("backright").getAbsolutePosition()-179.8);
-
-
-            
-
->>>>>>> ab505a6 (gog can code!)
             SmartDashboard.putString("Pose", getPose().toString());
             //focDisabledAlert.set(!fieldOriented);
         });
@@ -135,14 +119,17 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
     }
 
     
-    public ChassisSpeeds calculateSpeedsToPose(Translation2d currentPose, Translation2d desiredPose, boolean usePhoton) {
+    @SuppressWarnings("resource")
+    public ChassisSpeeds calculateSpeedsToPose(Pose2d currentPose, Pose2d desiredPose, boolean usePhoton) {
         PIDController driveController, turnController;
         double mX, mO;
 
         if (usePhoton) {
-            //driveController = Robot.shooterCamera.getDriveController();
+            driveController = new PIDController(7.5, 0, 0);
             //turnController = Robot.shooterCamera.getTurnController();
+            turnController = new PIDController(2.5, 0, 0);
             //mX = Robot.shooterCamera.getMaxDrivePower();
+            mX = PHOTON_DRIVE_MAX_SPEED;
             mO = PHOTON_TURN_MAX_SPEED;
         } else {
             //driveController = Robot.swerve.getAutoDrivePID();
@@ -160,7 +147,7 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
         double jO = MathUtil.clamp(
                 turnController.calculate(
                         currentPose.getRotation().getRadians(),
-                        //desiredPose.getRotation().getRadians()
+                        desiredPose.getRotation().getRadians()
                 ),
                 -mO,
                 mO
