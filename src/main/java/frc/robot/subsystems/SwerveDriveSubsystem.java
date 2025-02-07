@@ -89,9 +89,6 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
                 SmartDashboard.putNumber("FR Turn", swerveDrive.getModuleMap().get("frontright").getAbsolutePosition());
                 SmartDashboard.putNumber("BL Turn", swerveDrive.getModuleMap().get("backleft").getAbsolutePosition());
                 SmartDashboard.putNumber("BR Turn", swerveDrive.getModuleMap().get("backright").getAbsolutePosition());
-<<<<<<< HEAD
-            }
-=======
             */}
             SmartDashboard.putNumber("FL Turn", swerveDrive.getModuleMap().get("frontleft").getAbsolutePosition());
             SmartDashboard.putNumber("FR Turn", swerveDrive.getModuleMap().get("frontright").getAbsolutePosition());
@@ -105,7 +102,6 @@ public class SwerveDriveSubsystem extends BaseSubsystem {
 
             
 
->>>>>>> ab505a6 (gog can code!)
             SmartDashboard.putString("Pose", getPose().toString());
             //focDisabledAlert.set(!fieldOriented);
         });
