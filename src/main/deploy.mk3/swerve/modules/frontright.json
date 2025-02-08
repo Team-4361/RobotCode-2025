@@ -3,11 +3,7 @@
     "front": 15,
     "left": -15
   },
-<<<<<<< HEAD
-  "absoluteEncoderOffset": 223.31,
-=======
   "absoluteEncoderOffset": 175.9,
->>>>>>> ab505a6 (gog can code!)
   "drive": {
     "type": "sparkmax",
     "id": 4,
