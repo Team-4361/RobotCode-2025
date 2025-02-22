@@ -1,204 +1,129 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
 package frc.robot;
 
-import com.pathplanner.lib.config.PIDConstants;
-import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform3d;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
-import frc.robot.subsystems.base.SubsystemConfig;
-//import frc.robot.util.auto.PipelineOption;
-import frc.robot.util.math.GearRatio;
-import frc.robot.util.preset.PresetGroup;
-import frc.robot.util.preset.PresetMap;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static edu.wpi.first.wpilibj.PowerDistribution.ModuleType.kRev;
+import edu.wpi.first.wpilibj.XboxController;
+//import edu.wpi.first.wpilibj.;
+import swervelib.math.Matter;
 
 /**
- * This {@link Constants} class is an easy-to-use place for fixed value storage (ex. motor/controller IDs,
- * ratios, etc.)
- * <p></p>
- * Only <b>primitive types</b> and <b>Configuration Objects</b> shall be stored here.
+ * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean constants. This
+ * class should not be used for any other purpose. All constants should be declared globally (i.e. public static). Do
+ * not put anything functional in this class.
  *
- * @author Eric Gold
- * @since 0.0.0
+ * <p>It is advised to statically import this class (or one of its inner classes) wherever the
+ * constants are needed, to reduce verbosity.
  */
-public class Constants {
-    public static class Systems {
-        public static boolean MK4_CHASSIS = true;
+public final class Constants
+{
 
-        public static final SubsystemConfig FRONT_CAMERA = new SubsystemConfig(
-                "FrontCamera",
-                true,
-                true
-        );
-        public static final SubsystemConfig CORAL = new SubsystemConfig(
-                "Coral",
-                MK4_CHASSIS,
-                true
-        );
-        public static final SubsystemConfig CLIMBER = new SubsystemConfig(
-            null, 
-            MK4_CHASSIS, 
-            true
-        );
-        public static final SubsystemConfig ALGAE = new SubsystemConfig(
-            null, 
-            MK4_CHASSIS, 
-            false
-        );
-        public static final SubsystemConfig SWERVE = new SubsystemConfig(
-                "Swerve",
-                MK4_CHASSIS,
-                false
-        );
-    }
+  public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
+  public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(30)), ROBOT_MASS);
+  public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
+  public static final double MAX_SPEED  = Units.feetToMeters(15.1);
+  public static final boolean isDebug = true;
+  
+  public static final class Coral
+  { public static final int CPR_TALON = 2048;
+    public static final double MOTOR_GEAR_RATIO = 1.0;
+    public static final int LEFT_ELEVATOR_ID = 9;
+    public static final int RIGHT_ELEVATOR_ID = 14;
+    public static final int BUCKET_ID = 10;
+    public static final double KP = 0.0666;
+    public static final double KI = 0.00002;
+    public static final double KD = 0.0010; 
+    public static double L1_POS;
+    public static double L2_POS;
+    public static double L3_POS;
+    public static double L4_POS;
+    public static final double ELEVATOR_SPEED = 0.2;
+    
+  }
+  
 
-    public static class Power {
-        public static final ModuleType POWER_MODULE_TYPE = kRev;
-        public static final int POWER_CAN_ID = 34;
-    }
-
-
-    /** This {@link Shooter} class represents all values regarding the {@link Robot}'s shooting mechanism. */
-    public static class Shooter {
-        public static final int SHOOT_LEFT_MOTOR_ID = 16;
-        public static final int SHOOT_RIGHT_MOTOR_ID = 17;
-        public static final long SHOOT_END_DELAY_MS = 750;
-        public static final double SHOOT_SPEED = 1;
-        public static final double SHOOT_IDLE_SPEED = 0;
-        public static final double SLOW_SHOOT_SPEED = 0.07;
-
-        //public static final PIDConstants SHOOT_PID = new PIDConstants(0.1, 0, 0);
-    }
-
-    public static class Algae {
-        public static final int LEFT_MOTOR_ID = 6;  // Set to your left motor's CAN ID
-        public static final int RIGHT_MOTOR_ID = 29; // Set to your right motor's CAN ID
-        public static final double ALGAE_SPEED = 0.75; //motorspeed
-
+  // Maximum speed of the robot in meters per second, used to limit acceleration.
+    public static final class drivingConstants
+    {         /** The Left Joystick ID (typically 0) */
+      public static final int LEFT_STICK_ID = 0;
+      /** The Right Joystick ID (typically 1) */
+      public static final int  RIGHT_STICK_ID = 1;
+      /** The Xbox Controller (typically 2) */
+      public static final int XBOX_ID = 2; 
 
     }
+//  public static final class AutonConstants
+//  {
+//
+//    public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
+//    public static final PIDConstants ANGLE_PID       = new PIDConstants(0.4, 0, 0.01);
+//  }
 
-    /** This {@link Indexer} class represents all values regarding the {@link Robot}'s cameraIndex mechanism. */
-    public static class Indexer {
-        public static final int INDEX_LEFT_MOTOR_ID = 11;
-        public static final int INDEX_RIGHT_MOTOR_ID = 15;
-        public static final double INDEX_SPEED = 0.6;
-        public static final double SLOW_INDEX_SPEED = 0.08;
-    }
 
-    /** This {@link Intake} class represents all values regarding the {@link Robot}'s in-taking mechanism. */
-    public static class Intake {
-        public static final double INTAKE_SPEED = 0.4;
-        public static final double SLOW_INTAKE_SPEED = 0.1;
-        public static final int INTAKE_MOTOR_ID = 12;
-        public static final int INTAKE_SENSOR_PORT = 0;
-    }
-    public static class Climber {
-        public static final int CLIMBER_LEFT_ID = 13;
-        public static final int CLIMBER_RIGHT_ID = 14;
-        public static final int CLIMBER_LEFT_DIO = 1;
-        public static final int CLIMBER_RIGHT_DIO = 2;
-        public static final double CLIMBER_SPEED = 1;
-        public static final boolean CLIMBER_LEFT_INVERTED = true;
-        public static final boolean CLIMBER_RIGHT_INVERTED = false;
-        public static final long CLIMBER_SENSOR_DELAY_MS = 150;
-    }
+  public static final class DrivebaseConstants
+  {
 
-    public static class TrapFinger {
-        public static final int ARM_EXTENSION_MOTOR_ID = 10;
-        public static final double ARM_MAX_ROTATION = 102;
-        public static final GearRatio ARM_GEAR_RATIO = GearRatio.from(12, 1);
-       // public static final PIDConstants ARM_EXTENSION_PID = new PIDConstants(0.015, 0, 0);
-    }
+    /** Hold time on motor brakes when disabled*/
+    public static final double WHEEL_LOCK_TIME = 10; // seconds
+  }
 
-    public static class Control {
-        /** The Left Joystick ID (typically 0) */
-        public static final int LEFT_STICK_ID = 0;
-        /** The Right Joystick ID (typically 1) */
-        public static final int RIGHT_STICK_ID = 1;
-        /** The Xbox Controller ID (typically 2) */
-        public static final int XBOX_CONTROLLER_ID = 2;
-    }
+  public static class OperatorConstants
+  {
 
-   /*  public static class ShooterCamera {
-        public static final Transform3d SHOOT_CAMERA_TRANSFORM = new Transform3d(
-                new Translation3d(0, 0, 0),
-                new Rotation3d(0, 0, 0)
-        );
-        public static final List<PipelineOption> SHOOTER_PIPELINES = new ArrayList<>();
-        static {
-            SHOOTER_PIPELINES.add(new PipelineOption(
-                    "AprilTag",
-                    0,
-                    true,
-                    0,
-                    //new PIDConstants(0.3, 0, 0),
-                    //new PIDConstants(0.002, 0, 0)
-            ));
-        }
-    }*/
+    /**  Joystick Deadband */
+    public static final double DEADBAND        = 0.1;
+    public static final double LEFT_Y_DEADBAND = 0.1;
+    public static final double RIGHT_X_DEADBAND = 0.1;
+    public static final double TURN_CONSTANT    = 6;
+  }
 
-    public static class FrontCamera {
-        public static final Transform3d FRONT_CAMERA_TRANSFORM = new Transform3d(
-                new Translation3d(
-                        Units.inchesToMeters(11),
-                        0,
-                        Units.inchesToMeters(18)
-                ),
-                new Rotation3d(
-                        Units.degreesToRadians(-30.0),
-                        0,
-                        0
-                )
-        );
+  public static class Algae {
+    public static final int LEFT_MOTOR_ID = 12;  // Set to your left motor's CAN ID
+    public static final int RIGHT_MOTOR_ID = 10; // Set to your right motor's CAN ID
+    public static final int ALGAE_MOTOR_ID = 11; // Set to your motor id for the thing that moves algae up and down i gues
+    public static final double ALGAE_SPEED = 0.75; //motorspeed
+    public static final double POSITION_TOLERANCE = 0.02;
+    public static final double kP = 1.0;
+    public static final double kI = 0.2;
+    public static final double kD = 0.1;
 
-       /*  public static final List<PipelineOption> FRONT_PIPELINES = new ArrayList<>();
-        static {
-            FRONT_PIPELINES.add(new PipelineOption(
-                    "Note",
-                    0,
-                    false,
-                    0,
-                    //new PIDConstants(0.02, 0, 0),
-                    //new PIDConstants(0.0045, 0, 0)
-            ));
-        }*/
-    }
+    
+  
 
-    public static class Presets {
-        public static final PresetMap<Double> TRAP_ARM_PRESETS = new PresetMap<>("Trap Arm", true);
+  } 
 
-        static {
-            TRAP_ARM_PRESETS.put("Zero", 0.0);
-            TRAP_ARM_PRESETS.put("One", 3.0);
-            TRAP_ARM_PRESETS.put("Two", 12.0);
+  public static class ElevatorConstants {
+    public static final double kElevatorGearing = 12.0; // Gear ratio
+    public static final double kCarriageMass = 5.0; // Mass of the elevator carriage (kg), adjust as needed
+    public static final double kElevatorDrumRadius = 0.02; // Drum radius (meters), adjust based on real mechanism
+    public static final double kMinElevatorHeightMeters = 0.0; // Minimum elevator height in meters
+    public static final double kMaxElevatorHeightMeters = 2.4384; // 8 feet in meters (8 * 0.3048)
+    
+    // Conversion factors
+    public static final double kRotaionToMeters = (2 * Math.PI * kElevatorDrumRadius) / kElevatorGearing;
+    public static final double kRPMtoMPS = kRotaionToMeters / 60.0;
 
-            
-            //Robot.arm.registerExtensionPresets(TRAP_ARM_PRESETS);
-            //Robot.arm.registerAnglePresets(TRAP_ARM_ANGLE_PRESETS);
-            //Robot.wrist.registerPresets(TRAP_WRIST_PRESETS);
-        }
+    // PID constants (tune these)
+    public static final double kElevatorKp = 0.5;
+    public static final double kElevatorKi = 0.0;
+    public static final double kElevatorKd = 0.0;
 
-        /** Use this group for interfacing the trap presets!! **/
-        public static final PresetGroup TRAP_PRESET_GROUP = new PresetGroup(
-                "Trap Group",
-                TRAP_ARM_PRESETS
-        );
-    }
+    // Motion profiling constraints
+    public static final double kElevatorMaxVelocity = 1.5; // meters per second
+    public static final double kElevatorMaxAcceleration = 1.0; // meters per second^2
 
-    public static class Chassis {
-        public static final double SIDE_LENGTH_METERS = Units.inchesToMeters(30);
-        public static final double MAX_SPEED_MPS = 4.602;
+    // Feedforward constants (tune these)
+    public static final double kElevatorkS = 0.2; // Static friction voltage
+    public static final double kElevatorkG = 0.5; // Gravity feedforward
+    public static final double kElevatorkV = 2.0; // Velocity feedforward
+    public static final double kElevatorkA = 0.1; // Acceleration feedforward
+  }
 
-        public static final double PHOTON_DRIVE_MAX_SPEED = 0.5;
-        public static final double PHOTON_TURN_MAX_SPEED = 0.2;
 
-        public static final PIDConstants AUTO_DRIVE_PID = new PIDConstants(7.5, 0, 0);
-        public static final PIDConstants AUTO_TURN_PID = new PIDConstants(2.5, 0, 0);
-    }
 }
