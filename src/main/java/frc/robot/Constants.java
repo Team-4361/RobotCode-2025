@@ -47,9 +47,10 @@ public final class Constants
     
   }
 
-  public static final class kerklunkConstants
+  public static final class climberConstants
   {
-    public static final int kerklunkPort = 0; //placehodlr for when we get actual port
+    public static final int KERKLUNK_PORT = 0; //placehodlr for when we get actual port
+    public static final int WINCH_MOTOR_ID = 15;
   }
   
   

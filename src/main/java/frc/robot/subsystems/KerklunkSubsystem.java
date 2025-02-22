@@ -15,7 +15,7 @@ import frc.robot.Constants;
 
 
     public KerklunkSubsystem() {
-        kerklunk = new Servo(Constants.kerklunkConstants.kerklunkPort);
+        kerklunk = new Servo(Constants.climberConstants.KERKLUNK_PORT);
     }
 
     public void setAngle(double targetAngle) {

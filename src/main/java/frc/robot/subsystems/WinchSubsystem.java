@@ -4,6 +4,8 @@ import edu.wpi.first.math.controller.PIDController;
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
@@ -15,7 +17,7 @@ public class WinchSubsystem extends SubsystemBase {
    // private DigitalInput limitSwitch;
     private PIDController winchPID;
 
-    private static final int WINCH_MOTOR_ID = 15;
+
     private static final double POSITION_TOLERANCE = 0.02;
     private static final double WINCH_SPEED = 0.8;
     private static final int LIMIT_SWITCH_PORT = 0;
@@ -30,7 +32,7 @@ public class WinchSubsystem extends SubsystemBase {
     
 
     public WinchSubsystem() {
-        winchMotor = new SparkMax(WINCH_MOTOR_ID, MotorType.kBrushless);
+        winchMotor = new SparkMax(Constants.climberConstants.WINCH_MOTOR_ID, MotorType.kBrushless);
         winchEncoder = winchMotor.getEncoder();
         //driverStationJoystick = new Joystick(0);
         //limitSwitch = new DigitalInput(LIMIT_SWITCH_PORT);
