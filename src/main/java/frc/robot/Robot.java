@@ -93,7 +93,7 @@ public class Robot extends TimedRobot
   }
   private void configureBindings() 
   {
-
+    //test
     xbox.povLeft().onTrue(new BucketMoveB45(bucket));
     xbox.povRight().onTrue(new BucketMoveF45(bucket));
     xbox.leftTrigger().onTrue(new AlgaeSuckCommand(algae));
