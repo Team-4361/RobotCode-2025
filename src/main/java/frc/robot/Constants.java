@@ -46,6 +46,12 @@ public final class Constants
     public static final double ELEVATOR_SPEED = 0.2;
     
   }
+
+  public static final class kerklunkConstants
+  {
+    public static final int kerklunkPort = 0; //placehodlr for when we get actual port
+  }
+  
   
 
   // Maximum speed of the robot in meters per second, used to limit acceleration.

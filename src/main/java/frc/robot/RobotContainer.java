@@ -18,6 +18,18 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.algae.AlgaeDownCommand;
+import frc.robot.commands.algae.AlgaeExtrudeCommand;
+import frc.robot.commands.algae.AlgaeSuckCommand;
+import frc.robot.commands.algae.AlgaeUpCommand;
+import frc.robot.commands.climber.KerklunkCommand;
+import frc.robot.commands.coral.BucketMoveB45;
+import frc.robot.commands.coral.BucketMoveF45;
+import frc.robot.subsystems.BucketSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.KerklunkSubsystem;
+import frc.robot.subsystems.WinchSubsystem;
+import frc.robot.subsystems.algaesubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -35,9 +47,19 @@ public class RobotContainer
   final CommandJoystick joystickL = new CommandJoystick(0);
   final CommandJoystick joystickR = new CommandJoystick(1);
   final CommandXboxController driverXbox = new CommandXboxController(Constants.drivingConstants.XBOX_ID);
+  public static SwerveSubsystem swerve = new SwerveSubsystem(null);
+  public static algaesubsystem algae = new algaesubsystem();
+  public static ElevatorSubsystem elevator = new ElevatorSubsystem();
+  public static BucketSubsystem bucket = new BucketSubsystem();
+  public static WinchSubsystem winch = new WinchSubsystem();
+  public static KerklunkSubsystem kerklunk = new KerklunkSubsystem(); 
   // The robot's subsystems and commands are defined here...
+
+
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
+  
+                                                                                
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -156,6 +178,16 @@ public class RobotContainer
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
+          //test
+      driverXbox.povLeft().onTrue(new BucketMoveB45(bucket));
+    driverXbox.povRight().onTrue(new BucketMoveF45(bucket));
+    driverXbox.leftTrigger().onTrue(new AlgaeSuckCommand(algae));
+    driverXbox.rightTrigger().onTrue(new AlgaeExtrudeCommand(algae));
+    //xbox.b().toggleOnTrue(m_autonomousCommand)     could use to toggle modes for certain control schemes?
+    driverXbox.b().onTrue(new AlgaeUpCommand(algae));
+    driverXbox.x().onTrue(new AlgaeDownCommand(algae));
+    driverXbox.a().onTrue(new KerklunkCommand(kerklunk, 90.0));
+    driverXbox.y().onTrue(new KerklunkCommand(kerklunk, 180.0));
     }
 
   }

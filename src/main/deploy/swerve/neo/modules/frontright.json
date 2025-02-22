@@ -1,9 +1,9 @@
 {
   "location": {
-    "front": 15,
-    "left": -15
+    "front": 12,
+    "left": -12
   },
-  "absoluteEncoderOffset": 108.0,
+  "absoluteEncoderOffset": 110.16,
   "drive": {
     "type": "sparkmax",
     "id": 3,
