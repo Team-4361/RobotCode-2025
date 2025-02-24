@@ -3,30 +3,30 @@ package frc.robot.commands.coral;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.BucketSubsystem;
 public class BucketMoveB45 extends Command {
-private final BucketSubsystem coral;
+private final BucketSubsystem bucket;
 
     public BucketMoveB45(BucketSubsystem subsystem) {
-        this.coral = subsystem;
+        this.bucket = subsystem;
         // Declare subsystem dependency so no other command can use it at the same time.
-        addRequirements(coral);
+        addRequirements(bucket);
     }
 
     @Override
     public void initialize()
     {
 
-        coral.backwardsBucket();
+        bucket.backwardsBucket();
     }
     @Override
     public void execute()
     {
-        coral.backwardsBucket();
+        bucket.backwardsBucket();
     }
 
     @Override
     public void end(boolean interrupted)
     {
-        coral.zeroBucket();
+        bucket.zeroBucket();
     }
 
     @Override

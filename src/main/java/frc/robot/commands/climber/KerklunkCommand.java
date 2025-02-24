@@ -8,8 +8,9 @@ public class KerklunkCommand extends Command{
     private final double targetAngle;
 
     public KerklunkCommand(KerklunkSubsystem subsystem, double targetAngle) {
-        this.kerklunk = subsystem;
+        this.kerklunk = subsystem; 
         this.targetAngle = targetAngle;
+        // Declare subsystem dependency so no other command can use it at the same time.
         addRequirements(kerklunk);
 
     }

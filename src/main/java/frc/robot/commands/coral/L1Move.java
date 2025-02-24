@@ -1,37 +1,40 @@
 package frc.robot.commands.coral;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.BucketSubsystem;
-public class BucketMoveF45 extends Command {
-private final BucketSubsystem coral;
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.Constants;
+import frc.robot.Constants.ElevatorConstants;
+public class L1Move extends Command {
+private final ElevatorSubsystem elevator;
 
-    public BucketMoveF45(BucketSubsystem subsystem) {
-        this.coral = subsystem;
+    public L1Move(ElevatorSubsystem subsystem) {
+        this.elevator = subsystem;
         // Declare subsystem dependency so no other command can use it at the same time.
-        addRequirements(coral);
+        addRequirements(elevator);
     }
 
     @Override
     public void initialize()
     {
-        coral.forwardBucket();
+        elevator.getHeight();
     }
     @Override
     public void execute()
     {
-        coral.forwardBucket();
+        elevator.setMotors(Constants.ElevatorConstants.ELEVATOR_SPEED);
+        elevator.reachGoal(Constants.Coral.L1_POS);
     }
 
     @Override
     public void end(boolean interrupted)
     {
-        coral.zeroBucket();
+        elevator.stop();
     }
 
     @Override
     public boolean isFinished()
     {
-        return false; //idr how to implement this 
+        return elevator.atHeight(Constants.Coral.L1_POS, Constants.ElevatorConstants.ELEVATOR_TOLERANCE);
     }
 
 }

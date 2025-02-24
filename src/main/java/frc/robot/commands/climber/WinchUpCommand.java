@@ -8,7 +8,7 @@ public class WinchUpCommand extends Command {
 
     public WinchUpCommand(WinchSubsystem subsystem) {
         this.winch = subsystem;
-        
+        // Declare subsystem dependency so no other command can use it at the same time.
         addRequirements(winch);
     }
 
