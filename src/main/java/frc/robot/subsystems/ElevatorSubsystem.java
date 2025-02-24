@@ -30,13 +30,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase
 {
 
   // This gearbox represents a gearbox containing 2 Neos with a 12:1 ratio
-  private final DCMotor m_elevatorGearbox = DCMotor.getNEO(2).withReduction(12);
+  private final DCMotor m_elevatorGearbox = DCMotor.getNEO(2).withReduction(35); // gear box is a 7:1 * 5:1
 
   // Standard classes for controlling our elevator
   ElevatorFeedforward m_feedforward =
@@ -93,7 +94,10 @@ public class ElevatorSubsystem extends SubsystemBase
     m_motor2.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
 
     // Publish Mechanism2d to SmartDashboard
-    SmartDashboard.putData("Elevator Sim", m_mech2d);
+    if(Constants.isDebug)
+    {   
+      SmartDashboard.putData("Elevator Sim", m_mech2d);
+    }
   }
 
   /**
