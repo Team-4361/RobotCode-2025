@@ -31,6 +31,11 @@ import frc.robot.subsystems.KerklunkSubsystem;
 import frc.robot.subsystems.WinchSubsystem;
 import frc.robot.subsystems.algaesubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AlignToAprilTagCommand;
+import frc.robot.subsystems.swervedrive.AprilTagAligner;
+
 import java.io.File;
 import swervelib.SwerveInputStream;
 
@@ -46,6 +51,9 @@ public class RobotContainer
  
   final CommandJoystick joystickL = new CommandJoystick(0);
   final CommandJoystick joystickR = new CommandJoystick(1);
+
+  private final AprilTagAligner tagAligner = new AprilTagAligner("YourCameraName", swerve);
+
   final CommandXboxController driverXbox = new CommandXboxController(Constants.drivingConstants.XBOX_ID);
   public static SwerveSubsystem swerve = new SwerveSubsystem(null);
   public static algaesubsystem algae = new algaesubsystem();
@@ -163,12 +171,21 @@ public class RobotContainer
       driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
       joystickL.button(11).onTrue((Commands.runOnce(drivebase::zeroGyro)));
+
+      joystickL.button(12).whileTrue(new AlignToAprilTagCommand(swerve));
+
+
+
       driverXbox.back().whileTrue(drivebase.centerModulesCommand());
       driverXbox.leftBumper().onTrue(Commands.none());
       driverXbox.rightBumper().onTrue(Commands.none());
     } else
     {
       joystickL.button(11).onTrue((Commands.runOnce(drivebase::zeroGyro)));
+
+      joystickL.button(12).whileTrue(new AlignToAprilTagCommand(swerve));
+
+
       driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
       driverXbox.b().whileTrue(
           drivebase.driveToPose(
