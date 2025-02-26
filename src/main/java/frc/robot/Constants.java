@@ -39,8 +39,8 @@ public final class Constants
     public static final double KP = 0.0666;
     public static final double KI = 0.00002;
     public static final double KD = 0.0010; 
-    public static double L1_POS;
-    public static double L2_POS;
+    public static double L1_POS = 0.5;
+    public static double L2_POS = 0.8;
     public static double L3_POS;
     public static double L4_POS;
     public static final double ELEVATOR_SPEED = 0.2;
@@ -50,7 +50,7 @@ public final class Constants
   public static final class climberConstants
   {
     public static final int KERKLUNK_PORT = 0; //placehodlr for when we get actual port
-    public static final int WINCH_MOTOR_ID = 15;
+    public static final int WINCH_MOTOR_ID = 10;
   }
   
   
@@ -91,8 +91,8 @@ public final class Constants
   }
 
   public static class Algae {
-    public static final int LEFT_MOTOR_ID = 12;  // Set to your left motor's CAN ID
-    public static final int RIGHT_MOTOR_ID = 10; // Set to your right motor's CAN ID
+    public static final int LEFT_MOTOR_ID = 13;  // Set to your left motor's CAN ID
+    public static final int RIGHT_MOTOR_ID =12; // Set to your right motor's CAN ID
     public static final int ALGAE_MOTOR_ID = 11; // Set to your motor id for the thing that moves algae up and down i gues
     public static final double ALGAE_SPEED = 0.75; //motorspeed
     public static final double POSITION_TOLERANCE = 0.02;

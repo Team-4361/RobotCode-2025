@@ -25,6 +25,7 @@ import frc.robot.commands.algae.AlgaeUpCommand;
 import frc.robot.commands.climber.KerklunkCommand;
 import frc.robot.commands.coral.BucketMoveB45;
 import frc.robot.commands.coral.BucketMoveF45;
+import frc.robot.commands.coral.L1Move;
 import frc.robot.subsystems.BucketSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.KerklunkSubsystem;
@@ -205,6 +206,7 @@ public class RobotContainer
     driverXbox.x().onTrue(new AlgaeDownCommand(algae));
     driverXbox.a().onTrue(new KerklunkCommand(kerklunk, 90.0));
     driverXbox.y().onTrue(new KerklunkCommand(kerklunk, 180.0));
+    driverXbox.povUp().whileTrue(new L1Move(elevator));
     }
 
   }

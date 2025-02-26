@@ -131,7 +131,7 @@ public class ElevatorSubsystem extends SubsystemBase
    *
    * @param goal the position to maintain
    */
-  public void reachGoal(double goal)
+  private void reachGoal(double goal)
   {
       // Calculate the feedforward term based on the current velocity
       double feedforwardTerm = m_feedforward.calculate(m_encoder.getVelocity());
@@ -182,7 +182,6 @@ public class ElevatorSubsystem extends SubsystemBase
   {
     return run(() -> reachGoal(goal));
   }
-
   /**
    * Stop the control loop and motor output.
    */
