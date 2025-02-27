@@ -15,16 +15,8 @@ public class WinchSubsystem extends SubsystemBase {
     private RelativeEncoder winchEncoder;
    // private Joystick driverStationJoystick;
    // private DigitalInput limitSwitch;
-    private PIDController winchPID;
 
-
-    private static final double POSITION_TOLERANCE = 0.02;
     private static final double WINCH_SPEED = 0.8;
-    private static final int LIMIT_SWITCH_PORT = 0;
-
-    private static final double kP = 0.1;
-    private static final double kI = 0.0;
-    private static final double kD = 0.0;
     
     private double integral = 0.0;
     private double previousError = 0.0;
@@ -36,27 +28,6 @@ public class WinchSubsystem extends SubsystemBase {
         winchEncoder = winchMotor.getEncoder();
         //driverStationJoystick = new Joystick(0);
         //limitSwitch = new DigitalInput(LIMIT_SWITCH_PORT);
-        
-        winchPID = new PIDController(kP, kI, kD);
-        winchEncoder.setPosition(0);
-        
-        double currentPosition = winchEncoder.getPosition();
-        double error = targetPosition - currentPosition;
-
-        integral += error * 0.02;
-        double derivative = (error - previousError) / 0.02;
-
-        double pidOutput = (kP * error) + (kI * integral) + (kD * derivative);
-        pidOutput = Math.max(-1.0, Math.min(1.0, pidOutput));
-
-        if (Math.abs(error) > POSITION_TOLERANCE) {
-            winchMotor.set(pidOutput);
-        } else {
-            winchMotor.set(0);
-        }
-
-        previousError = error;
-
         /*
         double currentPos = winchEncoder.getPosition();
         double pidOutput = winchPID.calculate(currentPos, targetPosition);
