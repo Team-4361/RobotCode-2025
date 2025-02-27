@@ -26,6 +26,7 @@ import frc.robot.commands.climber.KerklunkCommand;
 import frc.robot.commands.coral.BucketMoveB45;
 import frc.robot.commands.coral.BucketMoveF45;
 import frc.robot.commands.coral.L1Move;
+import frc.robot.commands.coral.L2Move;
 import frc.robot.subsystems.BucketSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.KerklunkSubsystem;
@@ -62,12 +63,13 @@ public class RobotContainer
   public static BucketSubsystem bucket = new BucketSubsystem();
   public static WinchSubsystem winch = new WinchSubsystem();
   public static KerklunkSubsystem kerklunk = new KerklunkSubsystem(); 
-  NamedCommands.registerCommand()
+  //NamedCommands.registerCommand(L2_)
   // The robot's subsystems and commands are defined here...
 
 
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
+  
   
                                                                                 
 
@@ -205,8 +207,10 @@ public class RobotContainer
     //xbox.b().toggleOnTrue(m_autonomousCommand)     could use to toggle modes for certain control schemes?
     driverXbox.b().onTrue(new AlgaeUpCommand(algae));
     driverXbox.x().onTrue(new AlgaeDownCommand(algae));
-    driverXbox.a().onTrue(new KerklunkCommand(kerklunk, 90.0));
-    driverXbox.y().onTrue(new KerklunkCommand(kerklunk, 180.0));
+    //driverXbox.a().onTrue(new KerklunkCommand(kerklunk, 90.0));
+    //driverXbox.y().onTrue(new KerklunkCommand(kerklunk, 180.0));
+    driverXbox.a().whileTrue(new L1Move(elevator));
+    driverXbox.y().whileTrue(new L2Move(elevator));
     driverXbox.povUp().whileTrue(new L1Move(elevator));
     }
 

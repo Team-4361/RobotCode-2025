@@ -94,6 +94,8 @@ public class ElevatorSubsystem extends SubsystemBase
 
     // Publish Mechanism2d to SmartDashboard
     SmartDashboard.putData("Elevator Sim", m_mech2d);
+    //SmartDashboard.putData("Left Elevator Position",m_motor1.get);
+    //SmartDashboard.putNumber("Right Elevator Position",m_motor2.getAbsoluteEncoder());
   }
 
   /**
