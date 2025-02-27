@@ -62,6 +62,7 @@ public class RobotContainer
   public static BucketSubsystem bucket = new BucketSubsystem();
   public static WinchSubsystem winch = new WinchSubsystem();
   public static KerklunkSubsystem kerklunk = new KerklunkSubsystem(); 
+  NamedCommands.registerCommand()
   // The robot's subsystems and commands are defined here...
 
 

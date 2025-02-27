@@ -10,48 +10,37 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
-public class WinchSubsystem extends SubsystemBase {
-    private SparkMax winchMotor;
-    private RelativeEncoder winchEncoder;
-   // private Joystick driverStationJoystick;
-   // private DigitalInput limitSwitch;
 
-    private static final double WINCH_SPEED = 0.8;
-    
-    private double integral = 0.0;
-    private double previousError = 0.0;
+
+public class WinchSubsystem extends SubsystemBase {
+    private final SparkMax winchMotor;
+    private final RelativeEncoder winchEncoder;
+    private final PIDController winchPID;
+
+    private static final double WINCH_SPEED_MULTIPLIER = 0.8; // Adjust max speed
+    private static final double kP = 0.1;
+    private static final double kI = 0.0;
+    private static final double kD = 0.0;
+    private static final double TARGET_ROTATIONS = 90.0 / 360.0; // Convert degrees to rotations
+
     private double targetPosition = 0.0;
-    
 
     public WinchSubsystem() {
         winchMotor = new SparkMax(Constants.climberConstants.WINCH_MOTOR_ID, MotorType.kBrushless);
         winchEncoder = winchMotor.getEncoder();
-        //driverStationJoystick = new Joystick(0);
-        //limitSwitch = new DigitalInput(LIMIT_SWITCH_PORT);
-        /*
-        double currentPos = winchEncoder.getPosition();
-        double pidOutput = winchPID.calculate(currentPos, targetPosition);
-        pidOutput = Math.max(-1.0, Math.min(1.0, pidOutput));
+        winchPID = new PIDController(kP, kI, kD);
+        winchEncoder.setPosition(0);
+    }
+
+    public void setWinchSpeed(double speed) {
+        winchMotor.set(speed * WINCH_SPEED_MULTIPLIER);
+    }
+
+    public void moveWinchTo90Degrees() {
+        targetPosition = TARGET_ROTATIONS;
+        double pidOutput = winchPID.calculate(winchEncoder.getPosition(), targetPosition);
         winchMotor.set(pidOutput);
-        */
     }
-
-
-    @Override
-    public void periodic() {}
-
-
-    public void winchMoveDown() {
-        winchMotor.set(-WINCH_SPEED);
-        targetPosition = 0.0;
-    }
-
-
-    public void winchMoveUp() {
-        winchMotor.set(WINCH_SPEED);
-        targetPosition = 30.0;
-    }
-
 
     public void stopWinch() {
         winchMotor.set(0);
