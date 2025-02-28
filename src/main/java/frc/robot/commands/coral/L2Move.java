@@ -19,21 +19,22 @@ private double currentHeight;
     @Override
     public void initialize()
     {
-       currentHeight = elevator.getHeight(); 
+       currentHeight = elevator.getPositionMeters();
     }
     @Override
     public void execute()
     {
-        if(currentHeight > Constants.Coral.L2_POS)
+        elevator.setElevatorHeight(Constants.Coral.L2_POS);
+        /*if(currentHeight > Constants.Coral.L2_POS)
         {
-            elevator.setMotors(-Constants.ElevatorConstants.ELEVATOR_SPEED);
+            //elevator.setMotors(-Constants.ElevatorConstants.ELEVATOR_SPEED);
             elevator.setGoal(Constants.Coral.L2_POS);
         }
         else if(currentHeight < Constants.Coral.L2_POS)
         {
             elevator.setMotors(Constants.ElevatorConstants.ELEVATOR_SPEED);
             elevator.setGoal(Constants.Coral.L2_POS);
-        }
+        }*/
     }
 
     @Override
@@ -45,7 +46,7 @@ private double currentHeight;
     @Override
     public boolean isFinished()
     {
-       return elevator.atHeight(Constants.Coral.L2_POS, Constants.ElevatorConstants.ELEVATOR_TOLERANCE).getAsBoolean();
+        return elevator.aroundHeight(Constants.Coral.L1_POS, Constants.ElevatorConstants.ELEVATOR_TOLERANCE);
     }
 
 }

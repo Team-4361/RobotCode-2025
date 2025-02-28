@@ -51,6 +51,9 @@ public final class Constants
   {
     public static final int KERKLUNK_PORT = 0; //placehodlr for when we get actual port
     public static final int WINCH_MOTOR_ID = 10;
+    public static final double MAX_SPEED = 1.0; // for winch
+    public static final double MIN_SPEED = -1.0; // for winch
+    public static final double DEADZONE = 0.05; // Prevents small joystick movements from moving winch
   }
   
   
@@ -113,6 +116,7 @@ public final class Constants
     public static final double kMaxElevatorHeightMeters = 2.4384; // 8 feet in meters (8 * 0.3048)
     public static final double ELEVATOR_TOLERANCE = 0.02;
     public static final double ELEVATOR_SPEED = 0.15;
+    public static final double kElevatorRampRate = 0.1;
 
     // Conversion factors
     public static final double kRotaionToMeters = (2 * Math.PI * kElevatorDrumRadius) / kElevatorGearing;
@@ -124,7 +128,7 @@ public final class Constants
     public static final double kElevatorKd = 0.0;
 
     // Motion profiling constraints
-    public static final double kElevatorMaxVelocity = 1.5; // meters per second
+    public static final double kElevatorMaxVelocity = 1.5; // meters per second TO DO:need to do actual set up for mps
     public static final double kElevatorMaxAcceleration = 1.0; // meters per second^2
 
     // Feedforward constants (tune these)

@@ -27,6 +27,5 @@ import frc.robot.Constants;
     }
     public void zeroAngle() {
         kerklunk.setAngle(0.0);
-      
     }
 } 

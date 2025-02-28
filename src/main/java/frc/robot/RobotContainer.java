@@ -32,6 +32,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.KerklunkSubsystem;
 import frc.robot.subsystems.WinchSubsystem;
 import frc.robot.subsystems.algaesubsystem;
+
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -61,7 +62,7 @@ public class RobotContainer
   public static algaesubsystem algae = new algaesubsystem();
   public static ElevatorSubsystem elevator = new ElevatorSubsystem();
   public static BucketSubsystem bucket = new BucketSubsystem();
-  public static WinchSubsystem winch = new WinchSubsystem();
+  private final WinchSubsystem winchSubsystem = new WinchSubsystem();
   public static KerklunkSubsystem kerklunk = new KerklunkSubsystem(); 
   //NamedCommands.registerCommand(L2_)
   // The robot's subsystems and commands are defined here...
@@ -188,6 +189,14 @@ public class RobotContainer
       joystickL.button(11).onTrue((Commands.runOnce(drivebase::zeroGyro)));
 
       joystickL.button(12).whileTrue(new AlignToAprilTagCommand(swerve));
+
+      winchSubsystem.setDefaultCommand(
+          Commands.run(() -> {
+              double speed = -driverXbox.getLeftY(); // Inverts Y-axis for natural control
+              winchSubsystem.setWinchSpeed(speed);
+          }, winchSubsystem)
+      );
+
 
 
       driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));

@@ -10,9 +10,6 @@ public class WinchSubsystem extends SubsystemBase {
     private final SparkMax winchMotor;
     private final RelativeEncoder winchEncoder;
 
-    private static final double MAX_SPEED = 1.0;
-    private static final double MIN_SPEED = -1.0;
-
     public WinchSubsystem() {
         winchMotor = new SparkMax(Constants.climberConstants.WINCH_MOTOR_ID, MotorType.kBrushless);
         winchEncoder = winchMotor.getEncoder();
@@ -20,10 +17,18 @@ public class WinchSubsystem extends SubsystemBase {
     }
 
     public void setWinchSpeed(double speed) {
-        winchMotor.set(Math.max(MIN_SPEED, Math.min(MAX_SPEED, speed)));
+    if (Math.abs(speed) < Constants.climberConstants.DEADZONE) {
+        stopWinch(); // Stop motor if within deadzone
+    } else {
+        winchMotor.set(Math.max(Constants.climberConstants.MIN_SPEED, Math.min(Constants.climberConstants.MAX_SPEED, speed)));
     }
+}
 
     public void stopWinch() {
         winchMotor.set(0);
+    }
+
+    public double getWinchPosition() {
+        return winchEncoder.getPosition();
     }
 }
