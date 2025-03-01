@@ -20,8 +20,7 @@ import frc.robot.commands.algae.AlgaeDownCommand;
 import frc.robot.commands.algae.AlgaeExtrudeCommand;
 import frc.robot.commands.algae.AlgaeSuckCommand;
 import frc.robot.commands.algae.AlgaeUpCommand;
-import frc.robot.commands.coral.BucketMoveB45;
-import frc.robot.commands.coral.BucketMoveF45;
+import frc.robot.commands.coral.BucketMoveToPosition;
 
 import frc.robot.subsystems.BucketSubsystem;
 import frc.robot.subsystems.KerklunkSubsystem;
@@ -72,13 +71,6 @@ public class Robot extends TimedRobot
     rightStick = new CommandJoystick(Constants.drivingConstants.RIGHT_STICK_ID);
     xbox = new CommandXboxController(Constants.drivingConstants.XBOX_ID);
 
-    algae = new algaesubsystem();
-    elevator = new ElevatorSubsystem();
-    bucket = new BucketSubsystem();
-    winch = new WinchSubsystem();
-    kerklunk = new KerklunkSubsystem();
-
-
     m_robotContainer = new RobotContainer();
 
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
@@ -89,19 +81,10 @@ public class Robot extends TimedRobot
     {
       DriverStation.silenceJoystickConnectionWarning(true);
     }
-    configureBindings();
   }
-  private void configureBindings() 
-  {
-    //test
-    xbox.povLeft().onTrue(new BucketMoveB45(bucket));
-    xbox.povRight().onTrue(new BucketMoveF45(bucket));
-    xbox.leftTrigger().onTrue(new AlgaeSuckCommand(algae));
-    xbox.rightTrigger().onTrue(new AlgaeExtrudeCommand(algae));
-    //xbox.b().toggleOnTrue(m_autonomousCommand)     could use to toggle modes for certain control schemes?
-    xbox.b().onTrue(new AlgaeUpCommand(algae));
-    xbox.x().onTrue(new AlgaeDownCommand(algae));
-  }
+
+
+
 
 
   /**

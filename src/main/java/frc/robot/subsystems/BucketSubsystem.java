@@ -1,73 +1,139 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.math.controller.PIDController;
-import com.revrobotics.spark.SparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
+
+/* 
 public class BucketSubsystem extends SubsystemBase {
-    private final SparkMax motor;
-    private final Encoder encoder;
+    private final SparkMax bucketMotor;
+    private final RelativeEncoder encoder;
     private final PIDController pidController;
 
-    private static final int MOTOR_ID = 15; // Change if needed
-    private static final int CPR = 2048; // Encoder counts per revolution
-    private static final double MOTOR_GEAR_RATIO = 1.0;
-    private static final double KP = 0.0666;
-    private static final double KI = 0.00002;
-    private static final double KD = 0.0010;
+    private static final double GEAR_RATIO = 500.0; // 500:1 gear ratio
+    private static final double COUNTS_PER_REV = 42.0; // 42 counts per revolution
+    private static final double DEGREES_PER_MOTOR_REV = 360.0; // 1 motor rev = 360 degrees
 
-    private static final double MAX_POWER = 0.3; // Adjust this value to limit speed
+    private static final double POSITION_CONVERSION_FACTOR = 1 / (GEAR_RATIO * COUNTS_PER_REV);
+
+    // PID Constants
+    private static final double kP = 0.1;
+    private static final double kI = 0.0;
+    private static final double kD = 0.0;
+
+    public BucketSubsystem(int motorID) {
+        bucketMotor = new SparkMax(motorID, MotorType.kBrushless);
+        SparkMaxConfig config = new SparkMaxConfig();
+        config.encoder.positionConversionFactor(POSITION_CONVERSION_FACTOR); // Converts encoder readings to degrees
+        bucketMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        encoder = bucketMotor.getEncoder();
+        
+        pidController = new PIDController(kP, kI, kD);
+        pidController.setTolerance(1.0); // Tolerance in degrees
+    }
+
+    public void setPosition(double degrees) {
+        double output = pidController.calculate(encoder.getPosition(), degrees);
+        bucketMotor.set(output);
+    }
+
+    public double getPosition() {
+        return encoder.getPosition(); // Already in degrees due to conversion factor
+    }
+
+    public boolean atSetpoint() {
+        return pidController.atSetpoint();
+    }
+
+    public void stop() {
+        bucketMotor.set(0);
+    }
+}
+*/
+
+public class BucketSubsystem extends SubsystemBase {
+    private SparkMax bucketMotor;
+    private RelativeEncoder bucketEncoder;
+   // private Joystick driverStationJoystick;
+   // private DigitalInput limitSwitch;
+    private PIDController bucketPID;
+
     
-    private double targetAngle1 = 0.0; 
+    private double targetPosition = 0.0;
+    private static final double GEAR_RATIO = 500.0; // 500:1 gear ratio
+    private static final double COUNTS_PER_REV = 42.0; // 42 counts per revolution
+    private static final double DEGREES_PER_MOTOR_REV = 360.0; // 1 motor rev = 360 degrees
+
+    private static final double POSITION_CONVERSION_FACTOR = 1;
 
     public BucketSubsystem() {
-        motor = new SparkMax(MOTOR_ID, MotorType.kBrushed);
-        encoder = new Encoder(0, 1); // External encoder on RoboRIO
+        bucketMotor = new SparkMax(Constants.Coral.BUCKET_ID, MotorType.kBrushless);
+        bucketEncoder = bucketMotor.getEncoder();
+        
+        SparkMaxConfig config = new SparkMaxConfig();
+        config.encoder.positionConversionFactor(POSITION_CONVERSION_FACTOR); // Converts encoder readings to degrees
+        bucketMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        
+        //driverStationJoystick = new Joystick(0);
+        //limitSwitch = new DigitalInput(LIMIT_SWITCH_PORT);
+        bucketPID = new PIDController(Constants.Coral.KP, Constants.Coral.KI, Constants.Coral.KD);
+        
 
-        encoder.setDistancePerPulse(360.0 / (CPR * MOTOR_GEAR_RATIO));
-        pidController = new PIDController(KP, KI, KD);
-        pidController.setTolerance(0.5);
+        
 
-       
+        
     }
 
-    public void forwardBucket() {
-        targetAngle1 += 5.0;
-    }
-
-    public void backwardsBucket() {
-        targetAngle1 -= 5.0;
-    }
-
-    public void resetBucket() {
-        encoder.reset();
-        targetAngle1 = 0.0;
-    }
-
-    public void zeroBucket() {
-        targetAngle1 = 0.0;
-    }
-
-    public void stopBucket() {
-        motor.stopMotor();
-    }
 
     @Override
     public void periodic() {
-        double currentAngle = encoder.getDistance();
-        double pidOutput = pidController.calculate(currentAngle, targetAngle1);
 
-        pidOutput = Math.max(-1, Math.min(1, pidOutput));
 
-        pidOutput *= MAX_POWER;
+        double currentPos = bucketEncoder.getPosition();
+        double pidOutput = bucketPID.calculate(currentPos, targetPosition);
+        pidOutput = Math.max(-1.0, Math.min(1.0, pidOutput));
+        bucketMotor.set(pidOutput);
 
-        if (!pidController.atSetpoint()) {
-            motor.set(pidOutput);
-        } else {
-            motor.set(0);
+
+        if (Constants.isDebug) {
+        SmartDashboard.putNumber("Bucket Current Position: ", currentPos);
+        SmartDashboard.putNumber("Bucket Target Position: ", targetPosition);
+        SmartDashboard.putNumber("Bucket PID Output: ", pidOutput);
+
         }
+
+
+       
+
+
     }
+
+
+    public void setPosition(double degrees) {
+        targetPosition = degrees;
+    }
+
+
+
+    public void stopBucket() {
+        bucketMotor.stopMotor();
+    }
+
+    public void stop() {
+        bucketMotor.set(0);
+    }
+
+    public boolean atSetpoint() {
+        return bucketPID.atSetpoint();
+    }
+
 }

@@ -23,9 +23,9 @@ import frc.robot.commands.algae.AlgaeExtrudeCommand;
 import frc.robot.commands.algae.AlgaeSuckCommand;
 import frc.robot.commands.algae.AlgaeUpCommand;
 import frc.robot.commands.climber.KerklunkCommand;
-import frc.robot.commands.coral.BucketMoveB45;
-import frc.robot.commands.coral.BucketMoveF45;
-import frc.robot.commands.coral.L1Move;
+import frc.robot.commands.coral.BucketMoveToPosition;
+import frc.robot.commands.coral.BucketMoveToPosition;
+import frc.robot.commands.coral.MoveElevatorPos;
 import frc.robot.commands.coral.L2Move;
 import frc.robot.subsystems.BucketSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -54,17 +54,18 @@ public class RobotContainer
  
   final CommandJoystick joystickL = new CommandJoystick(0);
   final CommandJoystick joystickR = new CommandJoystick(1);
+  final CommandXboxController driverXbox = new CommandXboxController(Constants.drivingConstants.XBOX_ID);
+
+
 
   private final AprilTagAligner tagAligner = new AprilTagAligner("YourCameraName", swerve);
 
-  final CommandXboxController driverXbox = new CommandXboxController(Constants.drivingConstants.XBOX_ID);
   public static SwerveSubsystem swerve = new SwerveSubsystem(null);
   public static algaesubsystem algae = new algaesubsystem();
   public static ElevatorSubsystem elevator = new ElevatorSubsystem();
   public static BucketSubsystem bucket = new BucketSubsystem();
   private final WinchSubsystem winchSubsystem = new WinchSubsystem();
   public static KerklunkSubsystem kerklunk = new KerklunkSubsystem(); 
-  //NamedCommands.registerCommand(L2_)
   // The robot's subsystems and commands are defined here...
 
 
@@ -133,6 +134,7 @@ public class RobotContainer
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+    //NamedCommands.registerCommand("ElevatorL", new ElevatorDownCommand(elevator));
   }
 
   /**
@@ -196,9 +198,6 @@ public class RobotContainer
               winchSubsystem.setWinchSpeed(speed);
           }, winchSubsystem)
       );
-
-
-
       driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
       driverXbox.b().whileTrue(
           drivebase.driveToPose(
@@ -209,8 +208,8 @@ public class RobotContainer
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
           //test
-      driverXbox.povLeft().onTrue(new BucketMoveB45(bucket));
-    driverXbox.povRight().onTrue(new BucketMoveF45(bucket));
+      driverXbox.povLeft().whileTrue(new BucketMoveToPosition(bucket, -5)); // Move bucket to -45 degrees
+      driverXbox.povRight().whileTrue(new BucketMoveToPosition(bucket, 5)); // Move bucket to 45 degrees
     driverXbox.leftTrigger().onTrue(new AlgaeSuckCommand(algae));
     driverXbox.rightTrigger().onTrue(new AlgaeExtrudeCommand(algae));
     //xbox.b().toggleOnTrue(m_autonomousCommand)     could use to toggle modes for certain control schemes?
@@ -218,9 +217,9 @@ public class RobotContainer
     driverXbox.x().onTrue(new AlgaeDownCommand(algae));
     //driverXbox.a().onTrue(new KerklunkCommand(kerklunk, 90.0));
     //driverXbox.y().onTrue(new KerklunkCommand(kerklunk, 180.0));
-    driverXbox.a().whileTrue(new L1Move(elevator));
+    driverXbox.a().whileTrue(new MoveElevatorPos(elevator));
     driverXbox.y().whileTrue(new L2Move(elevator));
-    driverXbox.povUp().whileTrue(new L1Move(elevator));
+    driverXbox.povUp().whileTrue(new MoveElevatorPos(elevator));
     }
 
   }
