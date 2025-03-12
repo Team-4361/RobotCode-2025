@@ -1,5 +1,6 @@
 package frc.robot.commands.algae;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.algaesubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -15,20 +16,24 @@ public class AlgaeUpCommand extends Command {
     // Called once when the command is initially scheduled.
     @Override
     public void initialize() {
-        algae.setTargetPosition(600);
+        //algae.setTargetPosition(-600);
+        algae.setMotor(-Constants.Algae.ALGAE_SPEED);
     }
 
     // Called repeatedly while the command is scheduled.
     @Override
     public void execute() {
         // Optionally, call extrude continuously (if needed)
-        algae.setTargetPosition(600);
+        //algae.setTargetPosition(-600);
+        algae.setMotor(-Constants.Algae.ALGAE_SPEED);
+
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         algae.stopUpAndDown();
+        //algae.setMotor(0.0);
     }
 
     // Returns true when the command should end.

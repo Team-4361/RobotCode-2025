@@ -11,7 +11,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.math.geometry.Pose3d; // Import Pose3d
 
-public class AlignToAprilTagCommand extends Command {
+public class AprilTagAlign extends Command {
     private final SwerveSubsystem swerve;
     private final PhotonCamera camera = new PhotonCamera("Camera1"); // Hardcoded camera Name (will add to constands later prob)
 
@@ -22,7 +22,7 @@ public class AlignToAprilTagCommand extends Command {
     private static final double POSITION_TOLERANCE = 0.05; // 5 cm tolerance
     private static final double ANGLE_TOLERANCE = 2.0; // 2 degrees tolerance
 
-    public AlignToAprilTagCommand(SwerveSubsystem swerve) {
+    public AprilTagAlign(SwerveSubsystem swerve) {
         this.swerve = swerve;
         addRequirements(swerve);
     }

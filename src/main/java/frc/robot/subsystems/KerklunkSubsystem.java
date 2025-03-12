@@ -2,8 +2,10 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.climberConstants;
 
 
 
@@ -27,5 +29,10 @@ import frc.robot.Constants;
     }
     public void zeroAngle() {
         kerklunk.setAngle(0.0);
+    }
+      
+    public void periodic()
+    {
+        SmartDashboard.putNumber("climber ", getAngle());
     }
 } 

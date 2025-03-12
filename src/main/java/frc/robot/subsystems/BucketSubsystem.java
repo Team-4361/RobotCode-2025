@@ -80,7 +80,7 @@ public class BucketSubsystem extends SubsystemBase {
         bucketEncoder = bucketMotor.getEncoder();
         
         SparkMaxConfig config = new SparkMaxConfig();
-        config.encoder.positionConversionFactor(POSITION_CONVERSION_FACTOR); // Converts encoder readings to degrees
+        //config.encoder.positionConversionFactor(POSITION_CONVERSION_FACTOR); // Converts encoder readings to degrees
         bucketMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         
         //driverStationJoystick = new Joystick(0);
@@ -101,15 +101,16 @@ public class BucketSubsystem extends SubsystemBase {
         double currentPos = bucketEncoder.getPosition();
         double pidOutput = bucketPID.calculate(currentPos, targetPosition);
         pidOutput = Math.max(-1.0, Math.min(1.0, pidOutput));
+
         bucketMotor.set(pidOutput);
 
 
-        if (Constants.isDebug) {
+       /* if (Constants.isDebug) {
         SmartDashboard.putNumber("Bucket Current Position: ", currentPos);
         SmartDashboard.putNumber("Bucket Target Position: ", targetPosition);
         SmartDashboard.putNumber("Bucket PID Output: ", pidOutput);
 
-        }
+        }*/ 
 
 
        
@@ -118,6 +119,10 @@ public class BucketSubsystem extends SubsystemBase {
     }
 
 
+    public void setPower(double speed)
+    {
+        bucketMotor.set(speed);
+    }
     public void setPosition(double degrees) {
         targetPosition = degrees;
     }
