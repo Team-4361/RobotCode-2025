@@ -77,6 +77,11 @@ public class AlignToReefTagRelative extends Command {
         double ySpeed = -yController.calculate(yPos);
         double rotValue = -rotController.calculate(rotPos);
 
+        SmartDashboard.putNumber("xSpeed", xSpeed);
+        SmartDashboard.putNumber("ySpeed", ySpeed);
+        SmartDashboard.putNumber("RotValue", rotValue);
+
+
         drivebase.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
 
         if (!rotController.atSetpoint() ||
