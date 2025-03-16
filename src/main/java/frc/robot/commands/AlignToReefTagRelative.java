@@ -11,6 +11,9 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
+
+//scuffed ahh vision code
+
 public class AlignToReefTagRelative extends Command {
   private PIDController xController, yController, rotController;
   private boolean isRightScore;
@@ -26,7 +29,7 @@ public class AlignToReefTagRelative extends Command {
 
     this.isRightScore = isRightScore;
     this.drivebase = drivebase;
-    this.photonCamera = new PhotonCamera("YourCameraName"); // Set PhotonVision camera name
+    this.photonCamera = new PhotonCamera("Camera1"); 
 
     addRequirements(drivebase);
   }
@@ -89,7 +92,7 @@ public class AlignToReefTagRelative extends Command {
             !xController.atSetpoint()) {
           stopTimer.reset();
         }
-      }
+      } 
     } else {
       drivebase.drive(new Translation2d(), 0, false);
     }

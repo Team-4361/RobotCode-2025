@@ -167,7 +167,38 @@ public static class AE {
     public static double kMaxVelocity;
 
   }
-
+	public static final class VisionConstants {
+		public static final String CAMERA_NAME = "photonCamera"; // Change to your camera name
+		
+		// Camera position relative to robot center (in meters)
+		// These values are examples - you MUST update these for your robot!
+		public static final double CAMERA_X_OFFSET = 0.0; // +X is forward
+		public static final double CAMERA_Y_OFFSET = 0.0; // +Y is left
+		public static final double CAMERA_Z_OFFSET = 0.0; // +Z is up
+		
+		// AprilTag alignment constants
+		public static final double APRILTAG_ALIGNMENT_TIMEOUT = 3.0; // Seconds before giving up if tag lost
+		public static final double APRILTAG_ALIGNMENT_SETTLED_TIME = 1.0; // Seconds to hold position
+		
+		// PID Constants for AprilTag alignment
+		public static final double X_APRILTAG_ALIGNMENT_P = 0.5;
+		public static final double Y_APRILTAG_ALIGNMENT_P = 0.5;  
+		public static final double ROT_APRILTAG_ALIGNMENT_P = 0.02;
+		
+		// Tolerances
+		public static final double X_TOLERANCE_APRILTAG = 0.05; // meters
+		public static final double Y_TOLERANCE_APRILTAG = 0.05; // meters
+		public static final double ROT_TOLERANCE_APRILTAG = 2.0; // degrees
+		
+		// Target distances
+		public static final double TARGET_DISTANCE = 0.3048; // 1 foot in meters
+		public static final double LATERAL_OFFSET = 0.3048; // 1 foot in meters
+		
+		// Speed limits
+		public static final double MAX_SPEED_X = 0.5; // meters per second
+		public static final double MAX_SPEED_Y = 0.5; // meters per second
+		public static final double MAX_SPEED_ROT = 0.3; // radians per second
+	  }
 
 
 }
