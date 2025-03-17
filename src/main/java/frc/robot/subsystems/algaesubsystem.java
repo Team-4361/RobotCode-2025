@@ -18,9 +18,9 @@ public class algaesubsystem extends SubsystemBase {
     private final SparkMax rightMotor;
     private final RelativeEncoder encoder;
     private final PIDController pidController;
-    private static final double GEAR_RATIO = 1.0; // change this
+    /*private static final double GEAR_RATIO = 1.0; // change this
     private static final double COUNTS_PER_REV = 42.0; // 42 counts per revolution
-    private static final double DEGREES_PER_MOTOR_REV = 360.0; // 1 motor rev = 360 degrees
+    private static final double DEGREES_PER_MOTOR_REV = 360.0; // 1 motor rev = 360 degrees*/
 
     private static final double POSITION_CONVERSION_FACTOR = 1;
     private double targetPosition = 0.0;
@@ -83,32 +83,14 @@ public class algaesubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        //double currentPosition = encoder.getPosition();
-        //double pidOutput = pidController.calculate(currentPosition, targetPosition);
-        //SmartDashboard.putNumber("algae position", encoder.getPosition());
+        
 
+        double currentPos = encoder.getPosition();
+        double pidOutput = pidController.calculate(currentPos, targetPosition);
+        pidOutput = Math.max(-1.0, Math.min(1.0, pidOutput));
 
-        // Limit motor power
-      // pidOutput = Math.max(-1.0, Math.min(1.0, pidOutput));
+        sparkMax.set(pidOutput);
 
-        // Only move if outside tolerance
-       /*  if (!pidController.atSetpoint()) {
-            sparkMax.set(pidOutput);
-        } else {
-            sparkMax.set(0);
-        }*/
-
-        if (Constants.isDebug) {
-            // Update PID values from SmartDashboard
-            //pidController.setP(SmartDashboard.getNumber("PID/kP", Constants.Algae.kP));
-            //pidController.setI(SmartDashboard.getNumber("PID/kI", Constants.Algae.kI));
-            //pidController.setD(SmartDashboard.getNumber("PID/kD", Constants.Algae.kD));
-
-            // Display real-time data
-            ///SmartDashboard.putNumber("Algae/Current Position", currentPosition);
-            //SmartDashboard.putNumber("Algae/Target Position", targetPosition);
-            //SmartDashboard.putNumber("Algae/PID Output", pidOutput);
-        }
     }
 
     /** Moves algae out (extrudes) */
@@ -138,4 +120,16 @@ public class algaesubsystem extends SubsystemBase {
         leftMotor.set(-speed);
         rightMotor.set(speed);
     }
+
+    public void setPosition(double degrees) {
+        targetPosition = degrees;
+    }
+    
+    public boolean atSetpoint() {
+        return pidController.atSetpoint();
+
+    }
+
+
+
 }

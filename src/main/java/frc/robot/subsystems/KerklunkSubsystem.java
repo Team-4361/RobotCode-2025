@@ -12,10 +12,6 @@ import frc.robot.Constants.climberConstants;
 
  public class KerklunkSubsystem extends SubsystemBase {//it is a HS-322HD Servo that we called Kerklunk
     private Servo kerklunk;
-
-
-
-
     public KerklunkSubsystem() {
         kerklunk = new Servo(Constants.climberConstants.KERKLUNK_PORT);
     }
@@ -33,6 +29,7 @@ import frc.robot.Constants.climberConstants;
       
     public void periodic()
     {
+        
         SmartDashboard.putNumber("climber ", getAngle());
     }
 } 

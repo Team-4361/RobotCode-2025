@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import java.lang.annotation.Target;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -9,17 +8,16 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-//import com.fasterxml.jackson.databind.cfg.ContextAttributes;
-
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
+
+/*import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.ExponentialProfile.Constraints;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.controller.ElevatorFeedforward;
+import java.lang.annotation.Target;*/
+
 import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 
@@ -32,12 +30,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     public final RelativeEncoder lEncoder;
     public final RelativeEncoder rEncoder;
     //private final ElevatorFeedforward m_feedForward;
-    // stuff from old talon code that idk is needed
     // private double integral = 0.0;
     // private double previousError = 0.0;
     private double targetPosition = 0.0; // Target position for PID control
-    //private double pidOutput1 = 0.0;
-
+    
     public ElevatorSubsystem() {
         leftMotor = new SparkMax(Constants.Coral.LEFT_ELEVATOR_ID, MotorType.kBrushless);
         rightMotor = new SparkMax(Constants.Coral.RIGHT_ELEVATOR_ID, MotorType.kBrushless);
@@ -53,7 +49,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         config.idleMode(IdleMode.kBrake);
         leftMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         rightMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-       //pidController1 = new PIDController(Constants.ElevatorConstants.kElevatorKp,
+        //pidController1 = new PIDController(Constants.ElevatorConstants.kElevatorKp,
                 //Constants.ElevatorConstants.kElevatorKi, Constants.ElevatorConstants.kElevatorKd);
         //pidController1.setTolerance(0.5);
     }

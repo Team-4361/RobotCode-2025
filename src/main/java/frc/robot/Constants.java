@@ -41,6 +41,8 @@ public final class Constants
     public static final int LEFT_ELEVATOR_ID = 9;
     public static final int RIGHT_ELEVATOR_ID = 14;
     public static final int BUCKET_ID = 15;
+    public static final int PHOTOELECTRIC_SENSOR_1_PORT = 0;
+    public static final int PHOTOELECTRIC_SENSOR_2_PORT = 1;
     public static final double KP = 0.0666;
     public static final double KI = 0.00002;
     public static final double KD = 0.0010; 

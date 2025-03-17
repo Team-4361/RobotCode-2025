@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.algae.AlgaeExtrudeCommand;
 import frc.robot.commands.algae.AlgaeSuckCommand;
@@ -29,10 +28,6 @@ import frc.robot.commands.algae.AlgaeUpCommand;
 //import frc.robot.commands.algae.AlgaeElevatorSuckCommand;
 //import frc.robot.commands.algae.AlgaeElevatorUpCommand;
 //import frc.robot.commands.algae.AlgaeElevatorDownCommand;
-//import frc.robot.commands.coral.BucketMoveB45;
-//import frc.robot.commands.coral.BucketMoveF45;
-import frc.robot.commands.coral.BucketMoveToPosition;
-import frc.robot.commands.coral.BucketMoveB45;
 import frc.robot.commands.coral.ElevatorDownCommand;
 import frc.robot.commands.coral.ElevatorMoveToPos;
 import frc.robot.commands.coral.ElevatorUpCommand;
@@ -148,18 +143,8 @@ public class RobotContainer
 
   public RobotContainer()
   {
-    NamedCommands.registerCommand("ElevatorUp", new ElevatorUpCommand(elevator, bucket));
-    NamedCommands.registerCommand("ElevatorDown", new ElevatorDownCommand(elevator, bucket));
-    //NamedCommands.registerCommand("BucketMoveF45", new BucketMoveF45(bucket));
-    //NamedCommands.registerCommand("BucketMoveB45", new BucketMoveB45(bucket));
-    NamedCommands.registerCommand("AlgaeDown", new AlgaeUpCommand(algae));
-    NamedCommands.registerCommand("AlgaeUp", new AlgaeDownCommand(algae));    
-    NamedCommands.registerCommand("AlgaeSuck", new AlgaeSuckCommand(algae));
-    NamedCommands.registerCommand("AlgaeExtrude", new AlgaeExtrudeCommand(algae));    
-    //NamedCommands.registerCommand("AlgaeElevatorDown", new AlgaeElevatorDownCommand(AE));
-    //NamedCommands.registerCommand("AlgaeElevatorUp", new AlgaeElevatorUpCommand(AE));    
-    //NamedCommands.registerCommand("AlgaeElevatorSuck", new AlgaeElevatorSuckCommand(AE));
-    //NamedCommands.registerCommand("AlgaeElevatorExtrude", new AlgaeElevatorExtrudeCommand(AE));
+    NamedCommands.registerCommand("ElevatorUp", new ElevatorUpCommand(elevator));
+    NamedCommands.registerCommand("ElevatorDown", new ElevatorDownCommand(elevator));
 
     // Configure the trigger bindings
     configureBindings();
@@ -231,44 +216,50 @@ public class RobotContainer
       //driverXbox.back().whileTrue(Commands.none());
       //driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       //driverXbox.rightBumper().whileTrue(new BucketMoveB45(bucket, -0.05));
-      driverXbox.povDown().whileTrue(new ElevatorDownCommand(elevator, bucket));
-      //driverXbox.povUp().whileTrue(new ElevatorMoveToPos(elevator, 46.60));
-      //driverXbox.povDown().whileTrue(new ElevatorMoveToPos(elevator, 102.3));
-      driverXbox.povUp().whileTrue(new ElevatorUpCommand(elevator, bucket));
+
 
       //driverXbox.povLeft().whileTrue(new BucketMoveB45(bucket)); // speed verision
       //driverXbox.povRight().whileTrue(new BucketMoveF45(bucket));
       //driverXbox.povLeft().whileTrue(new BucketMoveB45(bucket)); //  full rotation test version
       //driverXbox.povRight().whileTrue(new BucketMoveB45(bucket, -0.4)); // 
-      driverXbox.povRight().whileTrue(new BucketMoveToPosition(bucket, 38));
       //driverXbox.povLeft().whileTrue(new BucketMoveB45(bucket, 0.4));
-      driverXbox.leftStick().whileTrue(new BucketMoveToPosition(bucket, 0));
       joystickL.button(4).whileTrue(new KerklunkCommand(kerklunk, 0.0));
       joystickL.button(6).whileTrue(new KerklunkCommand(kerklunk, 180.0));
-    
-    
-      driverXbox.povLeft().whileTrue(new BucketMoveToPosition(bucket, -60.67));
-      driverXbox.rightTrigger().whileTrue(new AlgaeExtrudeCommand(algae));
+      //backup incase something goes wrong
+      /* driverXbox.rightTrigger().whileTrue(new AlgaeExtrudeCommand(algae));
       driverXbox.leftTrigger().whileTrue(new AlgaeSuckCommand(algae));
       driverXbox.a().whileTrue(new AlgaeDownCommand(algae));
       driverXbox.b().whileTrue(new elevatorPosUp(elevator, 97.2, 1));
       driverXbox.x().whileTrue(new elevatorPosUp(elevator, 46, 1));
+      //driverXbox.povUp().whileTrue(new ElevatorMoveToPos(elevator, 46.60));
+      //driverXbox.povDown().whileTrue(new ElevatorMoveToPos(elevator, 102.3));
+      */
+     //Remember to make sure the light is on (press the button labeled "On/Off" to toggle); Num Lock button
+      driverXbox.rightTrigger().whileTrue(new AlgaeExtrudeCommand(algae)); //Subtraction button
+      driverXbox.leftTrigger().whileTrue(new AlgaeSuckCommand(algae)); //Plus button
+      driverXbox.povLeft().whileTrue(new AlgaeUpCommand(algae)); //5 button (subject to change)
+      driverXbox.povRight().whileTrue(new AlgaeDownCommand(algae)); //6 button (subject to change)
+      driverXbox.leftStick().whileTrue(new KerklunkCommand(kerklunk, 0.0)); //7 button
+      driverXbox.rightStick().whileTrue(new KerklunkCommand(kerklunk, 90.0)); //8 button
+      driverXbox.a().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L1_POS, 1)); //1 button
+      driverXbox.b().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L2_POS, 1)); // 2 button
+      driverXbox.x().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L3_POS, 1)); // 3 button
+      driverXbox.y().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L4_POS, 1));// 4 button
+      driverXbox.povDown().whileTrue(new ElevatorDownCommand(elevator)); // 9 button
+      driverXbox.povUp().whileTrue(new ElevatorUpCommand(elevator)); //multiply (*) button
+      driverXbox.rightBumper().whileTrue(new WinchUpCommand(winch)); //Enter button
+      driverXbox.leftBumper().whileTrue(new WinchDownCommand(winch));//Decimal (.) button
 
       
 
 
-      driverXbox.y().whileTrue(new AlgaeUpCommand(algae));
+      //driverXbox.y().whileTrue(new AlgaeUpCommand(algae));
       //driverXbox.b().whileTrue(new AlgaeElevatorExtrudeCommand(AE));
       //driverXbox.x().whileTrue(new AlgaeElevatorSuckCommand(AE));
      // driverXbox.y().whileTrue(new AlgaeElevatorUpCommand(AE));
       //driverXbox.a().whileTrue(new AlgaeElevatorDownCommand(AE));
       //driverXbox.leftTrigger().whileTrue(new KerklunkCommand(kerklunk, 0.0));
       //driverXbox.rightStick().whileTrue(new KerklunkCommand(kerklunk, 90.0));
-      driverXbox.rightBumper().whileTrue(new WinchUpCommand(winch));
-      driverXbox.leftBumper().whileTrue(new WinchDownCommand(winch));
-      
-
-        
       }
     }
 
