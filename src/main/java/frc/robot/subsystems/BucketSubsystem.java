@@ -27,6 +27,7 @@ public class BucketSubsystem extends SubsystemBase {
    // private static final double POSITION_CONVERSION_FACTOR = 1;
 
     public BucketSubsystem() {
+        //Declares variables
         coral = new SparkMax(Constants.Coral.BUCKET_ID, MotorType.kBrushless);
         this.sensor1 = new DigitalInput(Constants.Coral.PHOTOELECTRIC_SENSOR_1_PORT);
         this.sensor2 = new DigitalInput(Constants.Coral.PHOTOELECTRIC_SENSOR_2_PORT);        
@@ -41,6 +42,7 @@ public class BucketSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        //Checks if it has coral currently
         SmartDashboard.putBoolean("Got Coral", getSensor1());
         SmartDashboard.putBoolean("Has Coral", getSensor2());
        if (Constants.isDebug) {
@@ -52,15 +54,15 @@ public class BucketSubsystem extends SubsystemBase {
 
     public boolean getSensor1()
     {
-        return sensor1.get();
+        return sensor1.get(); //Returns the first sensor's photon electric port
     }
     public boolean getSensor2()
     {
-        return sensor2.get();
+        return sensor2.get(); //Return the second sensor's phonton electric port
     }
     public void stop()
     {
-        coral.set(0.0);
+        coral.set(0.0); //stops the mechanism
     }
     public void release()
     {

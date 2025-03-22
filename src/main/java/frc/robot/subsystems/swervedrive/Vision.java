@@ -87,7 +87,7 @@ public class Vision
     this.currentPose = currentPose;
     this.field2d = field;
 
-    if (Robot.isSimulation())
+    if (Robot.isSimulation()) //In simulation, simulates how the camera values would work
     {
       visionSim = new VisionSystemSim("Vision");
       visionSim.addAprilTags(fieldLayout);

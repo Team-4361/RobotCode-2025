@@ -19,22 +19,26 @@ public class elevatorPosUp extends Command {
     @Override
     public void initialize() {
         elevator.elevatorPosUp(targetHeight, eSpeed);
+        //Prepares to move the elevator up
     }
 
     @Override
     public void execute() {
         elevator.elevatorPosUp(targetHeight, eSpeed);
+        //Moves the elevator up, depending on the Height, the speed will adjust
     }
 
     @Override
     public boolean isFinished() {
-        return elevator.lEncoder.getPosition() == targetHeight || elevator.rEncoder.getPosition() == -targetHeight; // Check if it's at the target position
+        return elevator.lEncoder.getPosition() == targetHeight || elevator.rEncoder.getPosition() == -targetHeight;
+        // Check if it's at the target position
     }
 
     @Override
     public void end(boolean interrupted) {
         if (interrupted) {
             elevator.stopElevator();
+            //Stops the elevator if it is interrupted as an emergency
         }
     }
 }

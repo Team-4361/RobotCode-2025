@@ -16,12 +16,12 @@ public class ElevatorMoveToPos extends Command {
 
     @Override
     public void initialize() {
-        elevator.setTarget(targetHeight);
+        elevator.setTarget(targetHeight); //prepares to sets the Elevator to a certain height (found in constants)
     }
 
     @Override
     public void execute() {
-        elevator.setTarget(targetHeight);
+        elevator.setTarget(targetHeight); //prepares to sets the Elevator to a certain height (found in constants)
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ElevatorMoveToPos extends Command {
     @Override
     public void end(boolean interrupted) {
         if (interrupted) {
-            elevator.stopElevator();
+            elevator.stopElevator(); // If the elevator is interrupted, stops it as an emergency
         }
     }
 }

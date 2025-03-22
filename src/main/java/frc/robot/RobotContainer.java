@@ -225,7 +225,7 @@ public class RobotContainer
       //driverXbox.povLeft().whileTrue(new BucketMoveB45(bucket, 0.4));
       joystickL.button(4).whileTrue(new KerklunkCommand(kerklunk, 0.0));
       joystickL.button(6).whileTrue(new KerklunkCommand(kerklunk, 180.0));
-      //backup incase something goes wrong
+      //Xbox controller
       /* driverXbox.rightTrigger().whileTrue(new AlgaeExtrudeCommand(algae));
       driverXbox.leftTrigger().whileTrue(new AlgaeSuckCommand(algae));
       driverXbox.a().whileTrue(new AlgaeDownCommand(algae));
@@ -233,12 +233,20 @@ public class RobotContainer
       driverXbox.x().whileTrue(new elevatorPosUp(elevator, 46, 1));
       //driverXbox.povUp().whileTrue(new ElevatorMoveToPos(elevator, 46.60));
       //driverXbox.povDown().whileTrue(new ElevatorMoveToPos(elevator, 102.3));
+      //driverXbox.y().whileTrue(new AlgaeUpCommand(algae));
+      //driverXbox.b().whileTrue(new AlgaeElevatorExtrudeCommand(AE));
+      //driverXbox.x().whileTrue(new AlgaeElevatorSuckCommand(AE));
+     // driverXbox.y().whileTrue(new AlgaeElevatorUpCommand(AE));
+      //driverXbox.a().whileTrue(new AlgaeElevatorDownCommand(AE));
+      //driverXbox.leftTrigger().whileTrue(new KerklunkCommand(kerklunk, 0.0));
+      //driverXbox.rightStick().whileTrue(new KerklunkCommand(kerklunk, 90.0));
       */
+    //Keypad
      //Remember to make sure the light is on (press the button labeled "On/Off" to toggle); Num Lock button
       driverXbox.rightTrigger().whileTrue(new AlgaeExtrudeCommand(algae)); //Subtraction button
       driverXbox.leftTrigger().whileTrue(new AlgaeSuckCommand(algae)); //Plus button
-      driverXbox.povLeft().whileTrue(new AlgaeUpCommand(algae)); //5 button (subject to change)
-      driverXbox.povRight().whileTrue(new AlgaeDownCommand(algae)); //6 button (subject to change)
+      driverXbox.povLeft().whileTrue(new AlgaeUpCommand(algae)); //o button
+      driverXbox.povRight().whileTrue(new AlgaeDownCommand(algae)); //oo button
       driverXbox.leftStick().whileTrue(new KerklunkCommand(kerklunk, 0.0)); //7 button
       driverXbox.rightStick().whileTrue(new KerklunkCommand(kerklunk, 90.0)); //8 button
       driverXbox.a().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L1_POS, 1)); //1 button
@@ -253,13 +261,7 @@ public class RobotContainer
       
 
 
-      //driverXbox.y().whileTrue(new AlgaeUpCommand(algae));
-      //driverXbox.b().whileTrue(new AlgaeElevatorExtrudeCommand(AE));
-      //driverXbox.x().whileTrue(new AlgaeElevatorSuckCommand(AE));
-     // driverXbox.y().whileTrue(new AlgaeElevatorUpCommand(AE));
-      //driverXbox.a().whileTrue(new AlgaeElevatorDownCommand(AE));
-      //driverXbox.leftTrigger().whileTrue(new KerklunkCommand(kerklunk, 0.0));
-      //driverXbox.rightStick().whileTrue(new KerklunkCommand(kerklunk, 90.0));
+    
       }
     }
 

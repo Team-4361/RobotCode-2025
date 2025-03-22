@@ -30,7 +30,7 @@ public class WinchSubsystem extends SubsystemBase {
 
     public WinchSubsystem() {
         winchMotor = new SparkMax(Constants.climberConstants.WINCH_MOTOR_ID, MotorType.kBrushless);
-        winchEncoder = winchMotor.getEncoder();
+        winchEncoder = winchMotor.getEncoder(); //sets the winch encoder to the one being used
         //driverStationJoystick = new Joystick(0);
         //limitSwitch = new DigitalInput(LIMIT_SWITCH_PORT);
         winchPID = new PIDController(kP, kI, kD);
@@ -51,13 +51,13 @@ public class WinchSubsystem extends SubsystemBase {
 
     public void winchMoveDown() {
         winchMotor.set(-Constants.climberConstants.WINCH_SPEED);
-        targetPosition = 0.0;
+        targetPosition = 0.0;//moves the winch down depending on the speed
     }
 
 
     public void winchMoveUp() {
         winchMotor.set(Constants.climberConstants.WINCH_SPEED);
-        targetPosition = 30.0;
+        targetPosition = 30.0; //moves the winch up depending on the speed
     }
 
 

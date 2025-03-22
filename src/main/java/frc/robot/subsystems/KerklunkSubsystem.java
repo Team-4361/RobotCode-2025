@@ -17,14 +17,14 @@ import frc.robot.Constants.climberConstants;
     }
 
     public void setAngle(double targetAngle) {
-        kerklunk.setAngle(targetAngle);
+        kerklunk.setAngle(targetAngle); //sets the angle to the target angle
     }
     public double getAngle()
     {
-        return kerklunk.getAngle();
+        return kerklunk.getAngle();//gets the angle the kerklunk is in it
     }
     public void zeroAngle() {
-        kerklunk.setAngle(0.0);
+        kerklunk.setAngle(0.0); //sets the angle to 0 and reverts the kerklunk
     }
       
     public void periodic()

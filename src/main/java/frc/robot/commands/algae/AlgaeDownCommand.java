@@ -5,7 +5,7 @@ import frc.robot.subsystems.algaesubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class AlgaeDownCommand extends Command {
-    private final algaesubsystem algae;
+    private final algaesubsystem algae; 
 
     public AlgaeDownCommand(algaesubsystem subsystem) {
         this.algae = subsystem;

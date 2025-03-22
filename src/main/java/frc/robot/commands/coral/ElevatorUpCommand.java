@@ -14,18 +14,18 @@ private final ElevatorSubsystem elevator;
     @Override
     public void initialize()
     {
-        elevator.elevatorMoveUp();
+        elevator.elevatorMoveUp(); //prepares to move elevator up
     }
     @Override
     public void execute()
     {
-        elevator.elevatorMoveUp();
+        elevator.elevatorMoveUp(); //moves the elevator up
     }
 
     @Override
     public void end(boolean interrupted)
     {
-        elevator.stopElevator();
+        elevator.stopElevator(); //if interrupted, stops the elevator as an emergency
     }
 
     @Override

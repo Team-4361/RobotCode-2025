@@ -9,24 +9,24 @@ public class ReleaseCoralCommand extends Command {
     
     public ReleaseCoralCommand(BucketSubsystem bucket) {
         this.bucket = bucket;
-        addRequirements(bucket);
+        addRequirements(bucket); 
     }
 
     @Override
     public void initialize() {
-        bucket.release();
+        bucket.release(); //prepares to shoot out the coral
     }
 
     @Override
     public void execute() {
-        bucket.release();
+        bucket.release(); //shoots out the coral
     }
 
     @Override
     public void end(boolean interrupted) 
     {
         bucket.stop();
-        
+        // if something interrupts, stops the bucket as an emergency
     }
 
     @Override

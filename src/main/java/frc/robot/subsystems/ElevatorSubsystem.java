@@ -22,11 +22,13 @@ import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
+    //Declares the SparkMaxes
     private SparkMax leftMotor;
-    private SparkMax rightMotor;
+    private SparkMax rightMotor; 
     // private static final double POSITION_TOLERANCE = 0.02;
     private PIDController pidController1;
 
+    //Declares the left and right encoders
     public final RelativeEncoder lEncoder;
     public final RelativeEncoder rEncoder;
     //private final ElevatorFeedforward m_feedForward;
@@ -55,15 +57,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public void setTarget(double position) {
-        targetPosition = position;
+        targetPosition = position; 
     }
 
     public double getTarget() {
-        return targetPosition;
+        return targetPosition; //Tells the elevator to move to the position
     }
 
     public boolean atTarget() {
-        return pidController1.atSetpoint();
+        return pidController1.atSetpoint(); //Tells the elevator its at the position
 
 
     }
@@ -92,35 +94,35 @@ public class ElevatorSubsystem extends SubsystemBase {
     public void elevatorMoveDown() {
         if (lEncoder.getPosition() < 4 || rEncoder.getPosition() > -4) {
             leftMotor.stopMotor();
-            rightMotor.stopMotor();
+            rightMotor.stopMotor(); //Stops the motor when its at the position
         } else {
-            leftMotor.set(-Constants.Coral.ELEVATOR_SPEED);
+            leftMotor.set(-Constants.Coral.ELEVATOR_SPEED); //moves the motor until its at the position
             rightMotor.set(Constants.Coral.ELEVATOR_SPEED);
         }
 
     }
     public void elevatorPosUp(double position, double speed)
     {
-        leftMotor.set(speed);
+        leftMotor.set(speed); //sets the elevator speed
         rightMotor.set(-speed);
         if(lEncoder.getPosition() > position && rEncoder.getPosition() < -position)
         {
-            stopElevator();
+            stopElevator(); //when its at the position, stops the elevator
         }
     }
     public void elevatorPosDown(double position, double speed)
     {
-        leftMotor.set(-speed);
+        leftMotor.set(-speed); //sets the elevator
         rightMotor.set(speed);
         if(lEncoder.getPosition() < position && rEncoder.getPosition() > -position)
         {
-            stopElevator();
+            stopElevator(); //when its at position, stops the elevator
         }
 
     }
 
     public void stopElevator() {
-        leftMotor.stopMotor();
+        leftMotor.stopMotor(); 
         rightMotor.stopMotor();
     }
 

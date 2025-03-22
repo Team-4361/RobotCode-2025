@@ -15,21 +15,25 @@ public class WinchDownCommand extends Command {
     @Override
     public void initialize()
     {
+        //Prepares to move the winch down
         winch.winchMoveDown();
     }
     
     public void execute()
     {
+        //Moves the winch down
         winch.winchMoveDown();
     }
 
     public void end() 
     {
+        //whenever its done, it will stop moving the winch
         winch.stopWinch();
     }
 
     @Override
     public void end(boolean interrupted) {
+        //if interupted, stops the winch as an emergency
         winch.stopWinch();
     }
 
@@ -37,6 +41,6 @@ public class WinchDownCommand extends Command {
     @Override
     public boolean isFinished()
     {
-        return false; //something... idk yet
+        return false; //Checks if it is at its target position
     }
 }
