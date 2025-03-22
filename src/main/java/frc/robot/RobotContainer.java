@@ -209,18 +209,6 @@ public class RobotContainer
       driverXbox.a().whileTrue(new AlgaeDownCommand(algae));
       driverXbox.b().whileTrue(new elevatorPosUp(elevator, 97.2, 1));
       driverXbox.x().whileTrue(new elevatorPosUp(elevator, 46, 1));
-<<<<<<< Updated upstream
-      //driverXbox.povUp().whileTrue(new ElevatorMoveToPos(elevator, 46.60));
-      //driverXbox.povDown().whileTrue(new ElevatorMoveToPos(elevator, 102.3));
-      //driverXbox.y().whileTrue(new AlgaeUpCommand(algae));
-      //driverXbox.b().whileTrue(new AlgaeElevatorExtrudeCommand(AE));
-      //driverXbox.x().whileTrue(new AlgaeElevatorSuckCommand(AE));
-     // driverXbox.y().whileTrue(new AlgaeElevatorUpCommand(AE));
-      //driverXbox.a().whileTrue(new AlgaeElevatorDownCommand(AE));
-      //driverXbox.leftTrigger().whileTrue(new KerklunkCommand(kerklunk, 0.0));
-      //driverXbox.rightStick().whileTrue(new KerklunkCommand(kerklunk, 90.0));
-=======
->>>>>>> Stashed changes
       */
     //Keypad
      //Remember to make sure the light is on (press the button labeled "On/Off" to toggle); Num Lock button
@@ -241,14 +229,6 @@ public class RobotContainer
       driverXbox.povUp().whileTrue(new ElevatorUpCommand(elevator)); //multiply (*) button
       driverXbox.rightBumper().whileTrue(new WinchUpCommand(winch)); //Enter button
       driverXbox.leftBumper().whileTrue(new WinchDownCommand(winch));//Decimal (.) button
-<<<<<<< Updated upstream
-
-      
-
-
-    
-=======
->>>>>>> Stashed changes
       }
     }
 

@@ -11,6 +11,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /*import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -24,15 +25,7 @@ import frc.robot.Constants;
 public class ElevatorSubsystem extends SubsystemBase {
     //Declares the SparkMaxes
     private SparkMax leftMotor;
-<<<<<<< Updated upstream
-    private SparkMax rightMotor; 
-    // private static final double POSITION_TOLERANCE = 0.02;
-    private PIDController pidController1;
-
-    //Declares the left and right encoders
-=======
     private SparkMax rightMotor;
->>>>>>> Stashed changes
     public final RelativeEncoder lEncoder;
     public final RelativeEncoder rEncoder;
     /**All pid and feedforward stuff that is not needed currently */
@@ -61,10 +54,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         //pidController1.setTolerance(0.5);
     }
 
-<<<<<<< Updated upstream
-    public void setTarget(double position) {
-        targetPosition = position; 
-=======
 /*   public void setTarget(double position) {
         targetPosition = position;
 >>>>>>> Stashed changes
@@ -118,12 +107,8 @@ public class ElevatorSubsystem extends SubsystemBase {
         rightMotor.set(-speed);
         if(lEncoder.getPosition() > position && rEncoder.getPosition() < -position)
         {
-<<<<<<< Updated upstream
-            stopElevator(); //when its at the position, stops the elevator
-=======
             leftMotor.stopMotor();
             rightMotor.stopMotor();
->>>>>>> Stashed changes
         }
     }
     public void elevatorPosDown(double position, double speed)
