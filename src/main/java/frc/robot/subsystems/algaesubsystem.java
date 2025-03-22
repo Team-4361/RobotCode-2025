@@ -59,7 +59,7 @@ public class algaesubsystem extends SubsystemBase {
 
     public void setMotor(double speed)
     {
-        /* 
+         
         if (encoder.getPosition() < 0.05  || encoder.getPosition() > 138.0) 
         {
             sparkMax.stopMotor();
@@ -68,9 +68,6 @@ public class algaesubsystem extends SubsystemBase {
         {
             sparkMax.set(speed);
         }
-        
-        
-    */
 
         sparkMax.set(speed);
         
