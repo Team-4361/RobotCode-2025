@@ -201,6 +201,16 @@ public class RobotContainer
           new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
                         );*/
 
+            //Change X and Y values to change positon - This command all it does it move the robot to any position on the FIELD!!! 
+      // X and Y values are in meters btw
+      //In Radiants
+      /*
+       * 
+       * ONLY UNCOMMENT WHEN VISION TESTING or after testing in an actual field!!!!!!!
+       */
+
+      //joystickL.button(2).whileTrue(drivebase.driveToPose(new Pose2d(1.197, 1.058, new Rotation2d(0.925025))));
+
       joystickL.button(4).whileTrue(new KerklunkCommand(kerklunk, 0.0));
       joystickL.button(6).whileTrue(new KerklunkCommand(kerklunk, 180.0));
       //Xbox controller

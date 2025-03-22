@@ -87,7 +87,7 @@ public class Vision
     this.currentPose = currentPose;
     this.field2d = field;
 
-    if (Robot.isSimulation()) //In simulation, simulates how the camera values would work
+    if (Robot.isSimulation())
     {
       visionSim = new VisionSystemSim("Vision");
       visionSim.addAprilTags(fieldLayout);
@@ -394,7 +394,7 @@ public class Vision
     /**
      * Estimated robot pose.
      */
-    public        Optional<EstimatedRobotPose> estimatedRobotPose = Optional.empty();
+    public Optional<EstimatedRobotPose> estimatedRobotPose = Optional.empty();
 
     /**
      * Simulated camera instance which only exists during simulations.
@@ -530,9 +530,7 @@ public class Vision
       {
         mostRecentTimestamp = Math.max(mostRecentTimestamp, result.getTimestampSeconds());
       }
-      if ((resultsList.isEmpty() || (currentTimestamp - mostRecentTimestamp >= debounceTime)) &&
-          (currentTimestamp - lastReadTimestamp) >= debounceTime)
-      {
+
         resultsList = Robot.isReal() ? camera.getAllUnreadResults() : cameraSim.getCamera().getAllUnreadResults();
         lastReadTimestamp = currentTimestamp;
         resultsList.sort((PhotonPipelineResult a, PhotonPipelineResult b) -> {
@@ -542,7 +540,7 @@ public class Vision
         {
           updateEstimatedGlobalPose();
         }
-      }
+
     }
 
     /**

@@ -6,6 +6,20 @@ package frc.robot.subsystems.swervedrive;
 
 import static edu.wpi.first.units.Units.Meter;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.pathplanner.lib.path.GoalEndState;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
+
+import org.json.simple.parser.ParseException;
+import org.photonvision.targeting.PhotonPipelineResult;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
@@ -63,7 +77,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean     visionDriveTest = false;
+  private final boolean     visionDriveTest = true;
   /**
    * PhotonVision class to keep an accurate odometry.
    */
@@ -109,7 +123,7 @@ public class SwerveSubsystem extends SubsystemBase
       swerveDrive.stopOdometryThread();
     }
     setupPathPlanner();
-    RobotModeTriggers.autonomous().onTrue(Commands.runOnce(this::zeroGyro));
+    RobotModeTriggers.autonomous().onTrue(Commands.runOnce(this::zeroGyroWithAlliance));
   }
 
   /**
@@ -139,14 +153,11 @@ public class SwerveSubsystem extends SubsystemBase
   public void periodic()
   {
     // When vision is enabled we must manually update odometry in SwerveDrive
-   /*if (visionDriveTest)
+    if (visionDriveTest)
     {
       swerveDrive.updateOdometry();
       vision.updatePoseEstimation(swerveDrive);
-    }*/
-
-    
-
+    }
   }
 
   @Override
@@ -733,4 +744,25 @@ public class SwerveSubsystem extends SubsystemBase
   {
     return swerveDrive;
   }
+
+  public Command goToPositionCommand(Pose2d target) {
+    var waypoints = PathPlannerPath.waypointsFromPoses(
+      getPose(),
+      target
+    );
+    
+    var constraints = PathConstraints.unlimitedConstraints(12.0);
+    var goalState = new GoalEndState(0.0, target.getRotation());
+    var path = new PathPlannerPath(
+      waypoints,
+      constraints,
+      null,
+      goalState
+    );
+    path.preventFlipping = true;
+
+    return AutoBuilder.followPath(path);
+  }
+
+
 }
