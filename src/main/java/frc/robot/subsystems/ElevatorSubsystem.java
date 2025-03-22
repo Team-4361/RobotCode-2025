@@ -10,6 +10,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /*import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -19,22 +20,26 @@ import edu.wpi.first.math.controller.ElevatorFeedforward;
 import java.lang.annotation.Target;*/
 
 import frc.robot.Constants;
-import frc.robot.Constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
     //Declares the SparkMaxes
     private SparkMax leftMotor;
+<<<<<<< Updated upstream
     private SparkMax rightMotor; 
     // private static final double POSITION_TOLERANCE = 0.02;
     private PIDController pidController1;
 
     //Declares the left and right encoders
+=======
+    private SparkMax rightMotor;
+>>>>>>> Stashed changes
     public final RelativeEncoder lEncoder;
     public final RelativeEncoder rEncoder;
+    /**All pid and feedforward stuff that is not needed currently */
     //private final ElevatorFeedforward m_feedForward;
     // private double integral = 0.0;
     // private double previousError = 0.0;
-    private double targetPosition = 0.0; // Target position for PID control
+    //private double targetPosition = 0.0; // Target position for PID control
     
     public ElevatorSubsystem() {
         leftMotor = new SparkMax(Constants.Coral.LEFT_ELEVATOR_ID, MotorType.kBrushless);
@@ -56,8 +61,13 @@ public class ElevatorSubsystem extends SubsystemBase {
         //pidController1.setTolerance(0.5);
     }
 
+<<<<<<< Updated upstream
     public void setTarget(double position) {
         targetPosition = position; 
+=======
+/*   public void setTarget(double position) {
+        targetPosition = position;
+>>>>>>> Stashed changes
     }
 
     public double getTarget() {
@@ -69,18 +79,19 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
     }
+        */
     // public boolean aroundHeight(double height) {
     //     return aroundHeight(height, ElevatorConstants.kElevatorDefaultTolerance);
     // }
 
     // public boolean aroundHeight(double height, double tolerance) {
     //     return MathUtil.isNear(height, getPositionMeters(), tolerance);
-    // }
+   // }
 
 
     public void elevatorMoveUp() {
         // TODO: put this in constants
-        if (lEncoder.getPosition() > 146.8 || rEncoder.getPosition() < -146.8) {
+        if (lEncoder.getPosition() > Constants.Coral.UP_LIMIT || rEncoder.getPosition() < -Constants.Coral.UP_LIMIT) {
             leftMotor.stopMotor();
             rightMotor.stopMotor();
         } else {
@@ -92,7 +103,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public void elevatorMoveDown() {
-        if (lEncoder.getPosition() < 4 || rEncoder.getPosition() > -4) {
+        if (lEncoder.getPosition() < 2.5 || rEncoder.getPosition() > 2.5) {
             leftMotor.stopMotor();
             rightMotor.stopMotor(); //Stops the motor when its at the position
         } else {
@@ -107,7 +118,12 @@ public class ElevatorSubsystem extends SubsystemBase {
         rightMotor.set(-speed);
         if(lEncoder.getPosition() > position && rEncoder.getPosition() < -position)
         {
+<<<<<<< Updated upstream
             stopElevator(); //when its at the position, stops the elevator
+=======
+            leftMotor.stopMotor();
+            rightMotor.stopMotor();
+>>>>>>> Stashed changes
         }
     }
     public void elevatorPosDown(double position, double speed)
@@ -130,19 +146,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     @Override
     public void periodic() 
     {
-        //SmartDashboard.putNumber("Left Encoder Position", lEncoder.getPosition());
-        //SmartDashboard.putNumber("Right Encoder Position", rEncoder.getPosition());
-        //SmartDashboard.putNumber("target pos", targetPosition);
-        //SmartDashboard.putNumber("pid output", pidOutput1);
-
+        SmartDashboard.putNumber("Left Encoder Position", lEncoder.getPosition());
+        SmartDashboard.putNumber("Right Encoder Position", rEncoder.getPosition());
         //todo - Softlock so it stops motor if it is below a position or above a position.
-
-
-        if (lEncoder.getPosition() > 146.8 || rEncoder.getPosition() < -146.8 || lEncoder.getPosition() < 4 || rEncoder.getPosition() > -4) {
+        if (lEncoder.getPosition() > Constants.Coral.UP_LIMIT || rEncoder.getPosition() < Constants.Coral.UP_LIMIT || lEncoder.getPosition() < 4 || rEncoder.getPosition() > -4) {
             leftMotor.stopMotor();
             rightMotor.stopMotor();
-
-
         }
     }
 }

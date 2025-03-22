@@ -84,12 +84,12 @@ public class algaesubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         
-
+        /* PID stuff that I don't want to run in the background
         double currentPos = encoder.getPosition();
         double pidOutput = pidController.calculate(currentPos, targetPosition);
         pidOutput = Math.max(-1.0, Math.min(1.0, pidOutput));
 
-        sparkMax.set(pidOutput);
+        sparkMax.set(pidOutput);*/
 
     }
 
@@ -129,7 +129,4 @@ public class algaesubsystem extends SubsystemBase {
         return pidController.atSetpoint();
 
     }
-
-
-
 }

@@ -8,7 +8,6 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -24,18 +23,13 @@ import frc.robot.commands.algae.AlgaeExtrudeCommand;
 import frc.robot.commands.algae.AlgaeSuckCommand;
 import frc.robot.commands.algae.AlgaeDownCommand;
 import frc.robot.commands.algae.AlgaeUpCommand;
-//import frc.robot.commands.algae.AlgaeElevatorExtrudeCommand;
-//import frc.robot.commands.algae.AlgaeElevatorSuckCommand;
-//import frc.robot.commands.algae.AlgaeElevatorUpCommand;
-//import frc.robot.commands.algae.AlgaeElevatorDownCommand;
 import frc.robot.commands.coral.ElevatorDownCommand;
-import frc.robot.commands.coral.ElevatorMoveToPos;
 import frc.robot.commands.coral.ElevatorUpCommand;
+import frc.robot.commands.coral.SensorCommand;
 import frc.robot.commands.coral.elevatorPosUp;
 import frc.robot.subsystems.BucketSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.algaesubsystem;
-//import frc.robot.subsystems.ElevatorAlgae;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -56,8 +50,8 @@ public class RobotContainer
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
  
-  final CommandJoystick joystickL = new CommandJoystick(0);
-  final CommandJoystick joystickR = new CommandJoystick(1);
+  final CommandJoystick joystickL = new CommandJoystick(Constants.drivingConstants.LEFT_STICK_ID);
+  final CommandJoystick joystickR = new CommandJoystick(Constants.drivingConstants.RIGHT_STICK_ID);
   final CommandXboxController driverXbox = new CommandXboxController(Constants.drivingConstants.XBOX_ID);
   // The robot's subsystems and commands are defined here...
   private final KerklunkSubsystem kerklunk = new KerklunkSubsystem();  
@@ -65,23 +59,15 @@ public class RobotContainer
   private final BucketSubsystem bucket = new BucketSubsystem();
   private final algaesubsystem algae = new algaesubsystem();
   private final WinchSubsystem winch = new WinchSubsystem();
-  //private final ElevatorAlgae AE = new ElevatorAlgae();
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                    "swerve/neo"));
   private SendableChooser<Command> autoChooser;
-
-
-  
-                                                                            
-
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                //() -> driverXbox.getLeftY() * -1,
                                                                 () -> joystickL.getY(),//was multiplied by -1
                                                                 () -> joystickL.getX())
-                                                            //.withControllerRotationAxis(joystickR::getZ)
                                                             .withControllerRotationAxis(() -> joystickR.getZ())
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
@@ -148,6 +134,8 @@ public class RobotContainer
 
     // Configure the trigger bindings
     configureBindings();
+    bucket.setDefaultCommand(new SensorCommand(bucket));
+
     DriverStation.silenceJoystickConnectionWarning(true);
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
     //autoChooser = AutoBuilder.buildAutoChooser();
@@ -212,17 +200,7 @@ public class RobotContainer
         drivebase.driveToPose(
           new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
                         );*/
-      //driverXbox.start().whileTrue(Commands.none());
-      //driverXbox.back().whileTrue(Commands.none());
-      //driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      //driverXbox.rightBumper().whileTrue(new BucketMoveB45(bucket, -0.05));
 
-
-      //driverXbox.povLeft().whileTrue(new BucketMoveB45(bucket)); // speed verision
-      //driverXbox.povRight().whileTrue(new BucketMoveF45(bucket));
-      //driverXbox.povLeft().whileTrue(new BucketMoveB45(bucket)); //  full rotation test version
-      //driverXbox.povRight().whileTrue(new BucketMoveB45(bucket, -0.4)); // 
-      //driverXbox.povLeft().whileTrue(new BucketMoveB45(bucket, 0.4));
       joystickL.button(4).whileTrue(new KerklunkCommand(kerklunk, 0.0));
       joystickL.button(6).whileTrue(new KerklunkCommand(kerklunk, 180.0));
       //Xbox controller
@@ -231,6 +209,7 @@ public class RobotContainer
       driverXbox.a().whileTrue(new AlgaeDownCommand(algae));
       driverXbox.b().whileTrue(new elevatorPosUp(elevator, 97.2, 1));
       driverXbox.x().whileTrue(new elevatorPosUp(elevator, 46, 1));
+<<<<<<< Updated upstream
       //driverXbox.povUp().whileTrue(new ElevatorMoveToPos(elevator, 46.60));
       //driverXbox.povDown().whileTrue(new ElevatorMoveToPos(elevator, 102.3));
       //driverXbox.y().whileTrue(new AlgaeUpCommand(algae));
@@ -240,6 +219,8 @@ public class RobotContainer
       //driverXbox.a().whileTrue(new AlgaeElevatorDownCommand(AE));
       //driverXbox.leftTrigger().whileTrue(new KerklunkCommand(kerklunk, 0.0));
       //driverXbox.rightStick().whileTrue(new KerklunkCommand(kerklunk, 90.0));
+=======
+>>>>>>> Stashed changes
       */
     //Keypad
      //Remember to make sure the light is on (press the button labeled "On/Off" to toggle); Num Lock button
@@ -248,20 +229,26 @@ public class RobotContainer
       driverXbox.povLeft().whileTrue(new AlgaeUpCommand(algae)); //o button
       driverXbox.povRight().whileTrue(new AlgaeDownCommand(algae)); //oo button
       driverXbox.leftStick().whileTrue(new KerklunkCommand(kerklunk, 0.0)); //7 button
-      driverXbox.rightStick().whileTrue(new KerklunkCommand(kerklunk, 90.0)); //8 button
-      driverXbox.a().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L1_POS, 1)); //1 button
-      driverXbox.b().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L2_POS, 1)); // 2 button
-      driverXbox.x().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L3_POS, 1)); // 3 button
-      driverXbox.y().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L4_POS, 1));// 4 button
+      driverXbox.rightStick().whileTrue(new KerklunkCommand(kerklunk, 180.0)); //8 button
+      if(driverXbox.a().getAsBoolean())
+      {
+        System.out.print("testing!");
+      } //1 button
+      driverXbox.b().whileTrue(new elevatorPosUp(elevator,Constants.Coral.L2_POS, 0.25)); // 2 button
+      driverXbox.x().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L3_POS, 0.25)); // 3 button
+      //driverXbox.y().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L4_POS, 1));// 4 button
       driverXbox.povDown().whileTrue(new ElevatorDownCommand(elevator)); // 9 button
       driverXbox.povUp().whileTrue(new ElevatorUpCommand(elevator)); //multiply (*) button
       driverXbox.rightBumper().whileTrue(new WinchUpCommand(winch)); //Enter button
       driverXbox.leftBumper().whileTrue(new WinchDownCommand(winch));//Decimal (.) button
+<<<<<<< Updated upstream
 
       
 
 
     
+=======
+>>>>>>> Stashed changes
       }
     }
 

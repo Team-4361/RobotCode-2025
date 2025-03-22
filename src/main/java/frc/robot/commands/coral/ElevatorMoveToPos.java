@@ -1,4 +1,4 @@
-package frc.robot.commands.coral;
+/*package frc.robot.commands.coral;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -35,4 +35,5 @@ public class ElevatorMoveToPos extends Command {
             elevator.stopElevator(); // If the elevator is interrupted, stops it as an emergency
         }
     }
-}
+    
+}*/

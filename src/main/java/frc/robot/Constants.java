@@ -47,10 +47,13 @@ public final class Constants
     public static final double KI = 0.00002;
     public static final double KD = 0.0010; 
     public static double L1_POS;
-    public static double L2_POS;
-    public static double L3_POS;
+    public static double L2_POS = 46.0;
+    public static double L3_POS = 97.2;
     public static double L4_POS;
     public static final double ELEVATOR_SPEED = 0.25;
+    public static final double UP_LIMIT = 146.8;
+    public static final double DOWN_LIMIT = 2.5;
+
     
   }
   
@@ -63,7 +66,8 @@ public final class Constants
   
   // Maximum speed of the robot in meters per second, used to limit acceleration.
     public static final class drivingConstants
-    {         /** The Left Joystick ID (typically 0) */
+    { 
+      /** The Left Joystick ID (typically 0) */
       public static final int LEFT_STICK_ID = 0;
       /** The Right Joystick ID (typically 1) */
       public static final int  RIGHT_STICK_ID = 1;
@@ -129,7 +133,7 @@ public static class AE {
     public static final int LEFT_MOTOR_ID = 12;  // Set to your left motor's CAN ID
     public static final int RIGHT_MOTOR_ID = 13; // Set to your right motor's CAN ID
     public static final int ALGAE_MOTOR_ID = 11; // Set to your motor id for the thing that moves algae up and down i gues
-    public static final double ALGAE_SPEED = 0.40; //motorspeed
+    public static final double ALGAE_SPEED = 0.60; //motorspeed
     public static final double POSITION_TOLERANCE = 0.02;
     public static final double kP = 1.0;
     public static final double kI = 0.2;
