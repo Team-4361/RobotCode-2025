@@ -628,8 +628,5 @@ public class Vision
         }
       }
     }
-
-
   }
-
 }

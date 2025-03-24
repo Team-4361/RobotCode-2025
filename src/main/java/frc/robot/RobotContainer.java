@@ -25,6 +25,7 @@ import frc.robot.commands.algae.AlgaeDownCommand;
 import frc.robot.commands.algae.AlgaeUpCommand;
 import frc.robot.commands.coral.ElevatorDownCommand;
 import frc.robot.commands.coral.ElevatorUpCommand;
+import frc.robot.commands.coral.ReleaseCoralCommand;
 import frc.robot.commands.coral.SensorCommand;
 import frc.robot.commands.coral.elevatorPosUp;
 import frc.robot.subsystems.BucketSubsystem;
@@ -232,8 +233,9 @@ public class RobotContainer
       {
         System.out.print("testing!");
       } //1 button
-      driverXbox.b().whileTrue(new elevatorPosUp(elevator,Constants.Coral.L2_POS, 0.25)); // 2 button
+      //driverXbox.b().whileTrue(new elevatorPosUp(elevator,Constants.Coral.L2_POS, 0.25)); // 2 button
       driverXbox.x().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L3_POS, 0.25)); // 3 button
+      driverXbox.b().whileTrue(new ReleaseCoralCommand(bucket));
       //driverXbox.y().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L4_POS, 1));// 4 button
       driverXbox.povDown().whileTrue(new ElevatorDownCommand(elevator)); // 9 button
       driverXbox.povUp().whileTrue(new ElevatorUpCommand(elevator)); //multiply (*) button

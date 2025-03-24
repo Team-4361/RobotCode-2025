@@ -79,14 +79,14 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void elevatorMoveUp() {
         // TODO: put this in constants
-        if (lEncoder.getPosition() > Constants.Coral.UP_LIMIT || rEncoder.getPosition() < -Constants.Coral.UP_LIMIT) {
+        /*if (lEncoder.getPosition() > Constants.Coral.UP_LIMIT || rEncoder.getPosition() < -Constants.Coral.UP_LIMIT) {
             leftMotor.stopMotor();
             rightMotor.stopMotor();
-        } else {
+        } else {*/
             leftMotor.set(Constants.Coral.ELEVATOR_SPEED);
             rightMotor.set(-Constants.Coral.ELEVATOR_SPEED);
 
-        }
+        
 
     }
 
@@ -133,9 +133,9 @@ public class ElevatorSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Left Encoder Position", lEncoder.getPosition());
         SmartDashboard.putNumber("Right Encoder Position", rEncoder.getPosition());
         //todo - Softlock so it stops motor if it is below a position or above a position.
-        if (lEncoder.getPosition() > Constants.Coral.UP_LIMIT || rEncoder.getPosition() < Constants.Coral.UP_LIMIT || lEncoder.getPosition() < 4 || rEncoder.getPosition() > -4) {
+        /*if (lEncoder.getPosition() > Constants.Coral.UP_LIMIT || rEncoder.getPosition() < Constants.Coral.UP_LIMIT || lEncoder.getPosition() < 4 || rEncoder.getPosition() > -4) {
             leftMotor.stopMotor();
             rightMotor.stopMotor();
-        }
+        }*/
     }
 }
