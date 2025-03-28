@@ -14,6 +14,7 @@ public class ReleaseCoralCommand extends Command {
 
     @Override
     public void initialize() {
+        
         bucket.release(); //prepares to shoot out the coral
     }
 

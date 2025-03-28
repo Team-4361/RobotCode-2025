@@ -47,12 +47,12 @@ public final class Constants
     public static final double KI = 0.00002;
     public static final double KD = 0.0010; 
     public static double L1_POS;
-    public static double L2_POS = 46.0;
-    public static double L3_POS = 97.2;
-    public static double L4_POS;
-    public static final double ELEVATOR_SPEED = 0.25;
+    public static double L2_POS = 30;
+    public static double L3_POS = 81;
+    public static double L4_POS = 163.0;
+    public static final double ELEVATOR_SPEED = 0.55;
     public static final double UP_LIMIT = 163.3;
-    public static final double DOWN_LIMIT = 2.5;
+    public static final double DOWN_LIMIT = 1;
 
     
   }

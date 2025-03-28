@@ -67,8 +67,10 @@ public class BucketSubsystem extends SubsystemBase {
     public void release()
     {
         //invert depending on rotation 
-        coral.set(-0.3); 
+        coral.set(-0.10); //was -0.3
+
     }
+
     public void setMotor()
     {
         //sensors are normally true, when they change to false, the action is triggered
@@ -78,7 +80,7 @@ public class BucketSubsystem extends SubsystemBase {
         }
         else if(!getSensor1())
         {
-            coral.set(0.70);
+            coral.set(-0.70);
         }
 
         

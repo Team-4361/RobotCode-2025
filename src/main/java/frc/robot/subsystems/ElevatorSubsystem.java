@@ -79,19 +79,21 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void elevatorMoveUp() {
         // TODO: put this in constants
-        /*if (lEncoder.getPosition() > Constants.Coral.UP_LIMIT || rEncoder.getPosition() < -Constants.Coral.UP_LIMIT) {
+        if (lEncoder.getPosition() > Constants.Coral.UP_LIMIT || rEncoder.getPosition() < -Constants.Coral.UP_LIMIT) {
             leftMotor.stopMotor();
             rightMotor.stopMotor();
-        } else {*/
+        } else {
             leftMotor.set(Constants.Coral.ELEVATOR_SPEED);
             rightMotor.set(-Constants.Coral.ELEVATOR_SPEED);
+        }
 
         
 
     }
 
     public void elevatorMoveDown() {
-        if (lEncoder.getPosition() < 2.5 || rEncoder.getPosition() > 2.5) {
+
+        if (lEncoder.getPosition() < 1.0 || rEncoder.getPosition() > 1.0) {
             leftMotor.stopMotor();
             rightMotor.stopMotor(); //Stops the motor when its at the position
         } else {

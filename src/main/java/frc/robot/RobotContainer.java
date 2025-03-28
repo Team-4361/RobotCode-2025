@@ -179,17 +179,7 @@ public class RobotContainer
       driverXbox.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
 
     }
-    if (DriverStation.isTest())
-    {
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
-
-      driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
-      joystickL.button(11).onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      driverXbox.leftBumper().onTrue(Commands.none());
-      driverXbox.rightBumper().onTrue(Commands.none());
-    } else
+    else
     {
       joystickL.button(11).onTrue((Commands.runOnce(drivebase::zeroGyro)));
       //driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
@@ -229,13 +219,12 @@ public class RobotContainer
       driverXbox.povRight().whileTrue(new AlgaeDownCommand(algae)); //oo button
       driverXbox.leftStick().whileTrue(new KerklunkCommand(kerklunk, 0.0)); //7 button
       driverXbox.rightStick().whileTrue(new KerklunkCommand(kerklunk, 180.0)); //8 button
-      if(driverXbox.a().getAsBoolean())
-      {
-        System.out.print("testing!");
-      } //1 button
+ //1 button
       //driverXbox.b().whileTrue(new elevatorPosUp(elevator,Constants.Coral.L2_POS, 0.25)); // 2 button
-      driverXbox.x().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L3_POS, 0.25)); // 3 button
-      driverXbox.b().whileTrue(new ReleaseCoralCommand(bucket));
+      driverXbox.a().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L2_POS, 0.70));
+      driverXbox.x().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L3_POS, 0.70)); // 3 button
+      driverXbox.y().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L4_POS, 0.70));
+      driverXbox.b().whileTrue(new ReleaseCoralCommand(bucket)); 
       //driverXbox.y().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L4_POS, 1));// 4 button
       driverXbox.povDown().whileTrue(new ElevatorDownCommand(elevator)); // 9 button
       driverXbox.povUp().whileTrue(new ElevatorUpCommand(elevator)); //multiply (*) button
