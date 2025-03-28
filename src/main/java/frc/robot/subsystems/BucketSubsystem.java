@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -10,12 +11,14 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+//import frc.robot.commands.coral.BucketIntakeCommand;
 
 public class BucketSubsystem extends SubsystemBase {
     private SparkMax coral;
     private final DigitalInput sensor1;
     private final DigitalInput sensor2;
-   // private RelativeEncoder bucketEncoder;
+    private RelativeEncoder encoder;
+    public final boolean HasCoral;
     //private PIDController bucketPID;
 
     
@@ -30,10 +33,12 @@ public class BucketSubsystem extends SubsystemBase {
         //Declares variables
         coral = new SparkMax(Constants.Coral.BUCKET_ID, MotorType.kBrushless);
         this.sensor1 = new DigitalInput(Constants.Coral.PHOTOELECTRIC_SENSOR_1_PORT);
-        this.sensor2 = new DigitalInput(Constants.Coral.PHOTOELECTRIC_SENSOR_2_PORT);        
+        this.sensor2 = new DigitalInput(Constants.Coral.PHOTOELECTRIC_SENSOR_2_PORT);
+        HasCoral = false;         
         SparkMaxConfig config = new SparkMaxConfig();
         config.idleMode(IdleMode.kBrake);
         coral.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        encoder = coral.getEncoder();
         //driverStationJoystick = new Joystick(0);
         //limitSwitch = new DigitalInput(LIMIT_SWITCH_PORT);
         //bucketPID = new PIDController(Constants.Coral.KP, Constants.Coral.KI, Constants.Coral.KD);        
@@ -49,9 +54,23 @@ public class BucketSubsystem extends SubsystemBase {
         SmartDashboard.putString("Sensor 1 value", "" + sensor1.get());
         SmartDashboard.putString("Sensor 2 value", "" + sensor2.get());
         }
+        if (sensor2.get() == true) {
+            Boolean HasCoral = false;
+        }
+        else {
+            Boolean HasCoral = true;
+        }
+    }
+    public void SetMotorSpeed(Double speed) {
+        coral.set(speed);
+    }
+    public void ResetEncoder() {
+        encoder.setPosition(0.0);
     }
 
-
+    public double GetEncoderPos() {
+        return encoder.getPosition();
+    }
     public boolean getSensor1()
     {
         return sensor1.get(); //Returns the first sensor's photon electric port
@@ -67,7 +86,7 @@ public class BucketSubsystem extends SubsystemBase {
     public void release()
     {
         //invert depending on rotation 
-        coral.set(-0.10); //was -0.3
+        coral.set(-0.30); //was -0.3
 
     }
 
@@ -76,11 +95,12 @@ public class BucketSubsystem extends SubsystemBase {
         //sensors are normally true, when they change to false, the action is triggered
         if(!getSensor2())
         {
-            coral.stopMotor();
+            //new BucketIntakeCommand(bucket);
+            coral.set(-0.01);
         }
         else if(!getSensor1())
         {
-            coral.set(-0.70);
+            coral.set(-0.30);
         }
 
         

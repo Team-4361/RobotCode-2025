@@ -55,7 +55,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 /*   public void setTarget(double position) {
         targetPosition = position;
->>>>>>> Stashed changes
     }
 
     public double getTarget() {
