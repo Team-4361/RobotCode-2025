@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-//import frc.robot.commands.coral.BucketIntakeCommand;
+import frc.robot.commands.coral.BucketIntakeCommand;
 
 public class BucketSubsystem extends SubsystemBase {
     private SparkMax coral;
@@ -39,6 +39,7 @@ public class BucketSubsystem extends SubsystemBase {
         config.idleMode(IdleMode.kBrake);
         coral.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         encoder = coral.getEncoder();
+        
         //driverStationJoystick = new Joystick(0);
         //limitSwitch = new DigitalInput(LIMIT_SWITCH_PORT);
         //bucketPID = new PIDController(Constants.Coral.KP, Constants.Coral.KI, Constants.Coral.KD);        
@@ -86,7 +87,7 @@ public class BucketSubsystem extends SubsystemBase {
     public void release()
     {
         //invert depending on rotation 
-        coral.set(-0.30); //was -0.3
+        coral.set(-0.10); //was -0.3
 
     }
 
@@ -95,12 +96,12 @@ public class BucketSubsystem extends SubsystemBase {
         //sensors are normally true, when they change to false, the action is triggered
         if(!getSensor2())
         {
-            //new BucketIntakeCommand(bucket);
-            coral.set(-0.01);
+            new BucketIntakeCommand(this);
+            coral.stopMotor();
         }
         else if(!getSensor1())
         {
-            coral.set(-0.30);
+            coral.set(-0.50);
         }
 
         
