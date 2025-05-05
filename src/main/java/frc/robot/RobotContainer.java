@@ -23,6 +23,7 @@ import frc.robot.commands.algae.AlgaeExtrudeCommand;
 import frc.robot.commands.algae.AlgaeSuckCommand;
 import frc.robot.commands.algae.AlgaeDownCommand;
 import frc.robot.commands.algae.AlgaeUpCommand;
+import frc.robot.commands.coral.BucketAuto;
 import frc.robot.commands.coral.ElevatorDownCommand;
 import frc.robot.commands.coral.ElevatorUpCommand;
 import frc.robot.commands.coral.ReleaseCoralCommand;
@@ -132,6 +133,8 @@ public class RobotContainer
   {
     NamedCommands.registerCommand("ElevatorUp", new ElevatorUpCommand(elevator));
     NamedCommands.registerCommand("ElevatorDown", new ElevatorDownCommand(elevator));
+    NamedCommands.registerCommand("ExtrudeCoral", new BucketAuto(bucket));
+    NamedCommands.registerCommand("L2", new elevatorPosUp(elevator, Constants.Coral.L2_POS, 0.20));
 
     // Configure the trigger bindings
     configureBindings();
@@ -181,16 +184,20 @@ public class RobotContainer
     }
     else
     {
-      joystickL.button(11).onTrue((Commands.runOnce(drivebase::zeroGyro)));
+      joystickL.button(12).onTrue((Commands.runOnce(drivebase::zeroGyro)));
       //driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
      /*driverXbox.b().whileTrue(
           drivebase.driveToPose(
               new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
                               ); */ 
-      /*joystickL.button(4).whileTrue(
+      /*
+      joystickL.button(4).whileTrue(
         drivebase.driveToPose(
-          new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-                        );*/
+          new Pose2d(6.001, 3.974, Rotation2d.fromDegrees(5.813)))
+                        );
+           */
+      //joystickL.button(3).whileTrue(drivebase.driveToPose(new Pose2d(3.192, 1.934, new Rotation2d(4.07))));
+      //joystickL.button(3).whileTrue(drivebase.driveToPose(new Pose2d(3.192, 1.934, new Rotation2d(10))));
 
             //Change X and Y values to change positon - This command all it does it move the robot to any position on the FIELD!!! 
       // X and Y values are in meters btw
@@ -204,38 +211,46 @@ public class RobotContainer
 
       joystickL.button(4).whileTrue(new KerklunkCommand(kerklunk, 0.0));
       joystickL.button(6).whileTrue(new KerklunkCommand(kerklunk, 180.0));
-      //Xbox controller
-      /* driverXbox.rightTrigger().whileTrue(new AlgaeExtrudeCommand(algae));
-      driverXbox.leftTrigger().whileTrue(new AlgaeSuckCommand(algae));
-      driverXbox.a().whileTrue(new AlgaeDownCommand(algae));
-      driverXbox.b().whileTrue(new elevatorPosUp(elevator, 97.2, 1));
-      driverXbox.x().whileTrue(new elevatorPosUp(elevator, 46, 1));
-      */
-    //Keypad
-     //Remember to make sure the light is on (press the button labeled "On/Off" to toggle); Num Lock button
-      driverXbox.rightTrigger().whileTrue(new AlgaeExtrudeCommand(algae)); //Subtraction button
-      driverXbox.leftTrigger().whileTrue(new AlgaeSuckCommand(algae)); //Plus button
-      driverXbox.povLeft().whileTrue(new AlgaeUpCommand(algae)); //o button
-      driverXbox.povRight().whileTrue(new AlgaeDownCommand(algae)); //oo button
-      driverXbox.leftStick().whileTrue(new KerklunkCommand(kerklunk, 0.0)); //7 button
-      driverXbox.rightStick().whileTrue(new KerklunkCommand(kerklunk, 180.0)); //8 button
- //1 button
-      //driverXbox.b().whileTrue(new elevatorPosUp(elevator,Constants.Coral.L2_POS, 0.25)); // 2 button
-      driverXbox.a().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L2_POS, 0.70));
-      driverXbox.x().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L3_POS, 0.70)); // 3 button
-      driverXbox.y().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L4_POS, 0.70));
-      driverXbox.b().whileTrue(new ReleaseCoralCommand(bucket)); 
-      //driverXbox.y().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L4_POS, 1));// 4 button
-      driverXbox.povDown().whileTrue(new ElevatorDownCommand(elevator)); // 9 button
-      driverXbox.povUp().whileTrue(new ElevatorUpCommand(elevator)); //multiply (*) button
-      driverXbox.rightBumper().whileTrue(new WinchUpCommand(winch)); //Enter button
-      driverXbox.leftBumper().whileTrue(new WinchDownCommand(winch));//Decimal (.) button
-      }
-    }
+      //joystickL.button(3).onTrue(new BucketAuto(bucket));
+      //joystickL.button(3).whileTrue(new drivebase.driveToPose(new Pose2d(6.001, 3.974, rotation2d( 5.813))));
+            //Xbox controller
+            /* driverXbox.rightTrigger().whileTrue(new AlgaeExtrudeCommand(algae));
+            driverXbox.leftTrigger().whileTrue(new AlgaeSuckCommand(algae));
+            driverXbox.a().whileTrue(new AlgaeDownCommand(algae));
+            driverXbox.b().whileTrue(new elevatorPosUp(elevator, 97.2, 1));
+            driverXbox.x().whileTrue(new elevatorPosUp(elevator, 46, 1));
+            */
+          //Keypad
+           //Remember to make sure the light is on (press the button labeled "On/Off" to toggle); Num Lock button
+            driverXbox.rightTrigger().whileTrue(new AlgaeExtrudeCommand(algae)); //Subtraction button
+            driverXbox.leftTrigger().whileTrue(new AlgaeSuckCommand(algae)); //Plus button
+            driverXbox.povLeft().whileTrue(new AlgaeUpCommand(algae)); //o button
+            driverXbox.povRight().whileTrue(new AlgaeDownCommand(algae)); //oo button
+            driverXbox.leftStick().whileTrue(new KerklunkCommand(kerklunk, 0.0)); //7 button
+            driverXbox.rightStick().whileTrue(new KerklunkCommand(kerklunk, 180.0)); //8 button
 
-  
-
-  /**
+       //1 button
+            //driverXbox.b().whileTrue(new elevatorPosUp(elevator,Constants.Coral.L2_POS, 0.25)); // 2 button
+            driverXbox.a().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L2_POS, 0.70));
+            driverXbox.x().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L3_POS, 0.70)); // 3 button
+            driverXbox.y().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L4_POS, 0.70));
+            driverXbox.b().whileTrue(new ReleaseCoralCommand(bucket)); 
+            //driverXbox.y().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L4_POS, 1));// 4 button
+            driverXbox.povDown().whileTrue(new ElevatorDownCommand(elevator)); // 9 button
+            driverXbox.povUp().whileTrue(new ElevatorUpCommand(elevator)); //multiply (*) button
+            driverXbox.rightBumper().whileTrue(new WinchUpCommand(winch)); //Enter button
+            driverXbox.leftBumper().whileTrue(new WinchDownCommand(winch));//Decimal (.) button
+            }
+          }
+      
+        
+      
+        private Rotation2d rotation2d(double d) {
+          // TODO Auto-generated method stub
+          throw new UnsupportedOperationException("Unimplemented method 'rotation2d'");
+        }
+      
+        /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous

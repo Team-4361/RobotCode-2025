@@ -50,9 +50,9 @@ public final class Constants
     public static double L2_POS = 30;
     public static double L3_POS = 81;
     public static double L4_POS = 163.0;
-    public static final double ELEVATOR_SPEED = 0.55;
-    public static final double UP_LIMIT = 163.3;
-    public static final double DOWN_LIMIT = 1;
+    public static final double ELEVATOR_SPEED = 0.70;
+    public static final double UP_LIMIT = 163;
+    public static final double DOWN_LIMIT = 1.5;
 
     
   }

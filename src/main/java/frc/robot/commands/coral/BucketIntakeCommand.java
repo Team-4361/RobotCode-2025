@@ -34,7 +34,7 @@ public class BucketIntakeCommand extends Command {
   {
     
     coral.ResetEncoder();
-    targetPosition = -7;
+    targetPosition = -4;
 
   }
 
@@ -45,7 +45,7 @@ public class BucketIntakeCommand extends Command {
       intakePID = new PIDController(kP, kI, kD);
       double currentPos = coral.GetEncoderPos();
       intakePID.setTolerance(0.2);
-      targetPosition = -7;
+      targetPosition = -4;
       
       double pidOutput = intakePID.calculate(currentPos, targetPosition);
       pidOutput = Math.max(-1.0, Math.min(1.0, pidOutput));

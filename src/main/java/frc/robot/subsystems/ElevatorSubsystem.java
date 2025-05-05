@@ -1,6 +1,10 @@
 package frc.robot.subsystems;
 
 
+import javax.swing.text.Position;
+
+import org.opencv.core.Point;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -27,6 +31,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     private SparkMax rightMotor;
     public final RelativeEncoder lEncoder;
     public final RelativeEncoder rEncoder;
+    private double test;
     /**All pid and feedforward stuff that is not needed currently */
     //private final ElevatorFeedforward m_feedForward;
     // private double integral = 0.0;
@@ -92,7 +97,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void elevatorMoveDown() {
 
-        if (lEncoder.getPosition() < 1.0 || rEncoder.getPosition() > 1.0) {
+        if (lEncoder.getPosition() < 1.5 || rEncoder.getPosition() > 1.5) {
             leftMotor.stopMotor();
             rightMotor.stopMotor(); //Stops the motor when its at the position
         } else {
@@ -103,6 +108,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     public void elevatorPosUp(double position, double speed)
     {
+        test = position;
         leftMotor.set(speed); //sets the elevator speed
         rightMotor.set(-speed);
         if(lEncoder.getPosition() > position && rEncoder.getPosition() < -position)
@@ -113,6 +119,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     public void elevatorPosDown(double position, double speed)
     {
+        
         leftMotor.set(-speed); //sets the elevator
         rightMotor.set(speed);
         if(lEncoder.getPosition() < position && rEncoder.getPosition() > -position)
@@ -133,6 +140,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     {
         SmartDashboard.putNumber("Left Encoder Position", lEncoder.getPosition());
         SmartDashboard.putNumber("Right Encoder Position", rEncoder.getPosition());
+        SmartDashboard.putNumber("targetPos", test );
+        SmartDashboard.putBoolean("reach target?", lEncoder.getPosition() >= test || rEncoder.getPosition() <= -test );
         //todo - Softlock so it stops motor if it is below a position or above a position.
         /*if (lEncoder.getPosition() > Constants.Coral.UP_LIMIT || rEncoder.getPosition() < Constants.Coral.UP_LIMIT || lEncoder.getPosition() < 4 || rEncoder.getPosition() > -4) {
             leftMotor.stopMotor();

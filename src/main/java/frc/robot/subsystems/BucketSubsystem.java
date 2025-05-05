@@ -50,17 +50,17 @@ public class BucketSubsystem extends SubsystemBase {
     public void periodic() {
         //Checks if it has coral currently
         SmartDashboard.putBoolean("Got Coral", getSensor1());
-        SmartDashboard.putBoolean("Has Coral", getSensor2());
+        SmartDashboard.putBoolean("Holding Coral", getSensor2());
        if (Constants.isDebug) {
         SmartDashboard.putString("Sensor 1 value", "" + sensor1.get());
         SmartDashboard.putString("Sensor 2 value", "" + sensor2.get());
         }
-        if (sensor2.get() == true) {
+       /*  if (sensor2.get() == true) {
             Boolean HasCoral = false;
         }
         else {
             Boolean HasCoral = true;
-        }
+        }*/
     }
     public void SetMotorSpeed(Double speed) {
         coral.set(speed);
@@ -87,7 +87,7 @@ public class BucketSubsystem extends SubsystemBase {
     public void release()
     {
         //invert depending on rotation 
-        coral.set(-0.10); //was -0.3
+        coral.set(-0.20); //was -0.3
 
     }
 
@@ -96,7 +96,7 @@ public class BucketSubsystem extends SubsystemBase {
         //sensors are normally true, when they change to false, the action is triggered
         if(!getSensor2())
         {
-            new BucketIntakeCommand(this);
+            //BucketIntakeCommand(this);
             coral.stopMotor();
         }
         else if(!getSensor1())

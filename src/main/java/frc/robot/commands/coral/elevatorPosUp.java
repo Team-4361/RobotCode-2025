@@ -25,6 +25,7 @@ public class elevatorPosUp extends Command {
     @Override
     public void execute() {
         elevator.elevatorPosUp(targetHeight, eSpeed);
+        
         //Moves the elevator up, depending on the Height, the speed will adjust
     }
 
