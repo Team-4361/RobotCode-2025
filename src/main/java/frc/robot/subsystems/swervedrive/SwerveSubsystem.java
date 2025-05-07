@@ -122,6 +122,7 @@ public class SwerveSubsystem extends SubsystemBase
       // Stop the odometry thread if we are using vision that way we can synchronize updates better.
       swerveDrive.stopOdometryThread();
     }
+    //Zeros the gyro in autonomous 
     setupPathPlanner();
     RobotModeTriggers.autonomous().onTrue(Commands.runOnce(this::zeroGyroWithAlliance));
   }
@@ -603,6 +604,7 @@ public class SwerveSubsystem extends SubsystemBase
       resetOdometry(new Pose2d(getPose().getTranslation(), Rotation2d.fromDegrees(180)));
     } else
     {
+      //Sets the pose to 0 degrees (default value)
       zeroGyro();
     }
   }

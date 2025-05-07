@@ -184,7 +184,20 @@ public class RobotContainer
     }
     else
     {
+<<<<<<< Updated upstream
       joystickL.button(12).onTrue((Commands.runOnce(drivebase::zeroGyro)));
+=======
+      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
+      driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
+      joystickL.button(11).onTrue((Commands.runOnce(drivebase::zeroGyro))); 
+      driverXbox.back().whileTrue(drivebase.centerModulesCommand());
+      driverXbox.leftBumper().onTrue(Commands.none());
+      driverXbox.rightBumper().onTrue(Commands.none());
+    } else
+    {
+      joystickL.button(11).onTrue((Commands.runOnce(drivebase::zeroGyro)));
+>>>>>>> Stashed changes
       //driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
      /*driverXbox.b().whileTrue(
           drivebase.driveToPose(
