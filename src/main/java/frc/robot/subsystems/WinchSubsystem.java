@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.controller.PIDController;
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -9,23 +8,13 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
 import frc.robot.Constants;
-import frc.robot.Constants.climberConstants;
 
 public class WinchSubsystem extends SubsystemBase {
     private SparkMax winchMotor;
     private RelativeEncoder winchEncoder;
    // private Joystick driverStationJoystick;
    // private DigitalInput limitSwitch;
-    private PIDController winchPID;
 
-
-    private static final int LIMIT_SWITCH_PORT = 0;
-
-    private static final double kP = 0.1;
-    private static final double kI = 0.0;
-    private static final double kD = 0.0;
-    
-    private double targetPosition = 0.0;
     
 
     public WinchSubsystem() {
@@ -33,7 +22,6 @@ public class WinchSubsystem extends SubsystemBase {
         winchEncoder = winchMotor.getEncoder(); //sets the winch encoder to the one being used
         //driverStationJoystick = new Joystick(0);
         //limitSwitch = new DigitalInput(LIMIT_SWITCH_PORT);
-        winchPID = new PIDController(kP, kI, kD);
         winchEncoder.setPosition(0);
 
         /*
@@ -51,13 +39,11 @@ public class WinchSubsystem extends SubsystemBase {
 
     public void winchMoveDown() {
         winchMotor.set(-Constants.climberConstants.WINCH_SPEED);
-        targetPosition = 0.0;//moves the winch down depending on the speed
     }
 
 
     public void winchMoveUp() {
         winchMotor.set(Constants.climberConstants.WINCH_SPEED);
-        targetPosition = 30.0; //moves the winch up depending on the speed
     }
 
 

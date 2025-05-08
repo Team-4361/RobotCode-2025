@@ -158,15 +158,15 @@ public class RobotContainer
   private void configureBindings()
   {
 
-    Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
-    Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
-    Command driveRobotOrientedAngularVelocity  = drivebase.driveFieldOriented(driveRobotOriented);
-    Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(
-        driveDirectAngle);
-    Command driveFieldOrientedDirectAngleKeyboard      = drivebase.driveFieldOriented(driveDirectAngleKeyboard);
-    Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
-    Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
-        driveDirectAngleKeyboard);
+    //Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
+    //Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
+    //Command driveRobotOrientedAngularVelocity  = drivebase.driveFieldOriented(driveRobotOriented);
+    //Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(
+        //driveDirectAngle);
+    //Command driveFieldOrientedDirectAngleKeyboard      = drivebase.driveFieldOriented(driveDirectAngleKeyboard);
+    //Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
+    //Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
+        ///driveDirectAngleKeyboard);
 
     if (RobotBase.isSimulation())
     {
@@ -184,20 +184,7 @@ public class RobotContainer
     }
     else
     {
-<<<<<<< Updated upstream
       joystickL.button(12).onTrue((Commands.runOnce(drivebase::zeroGyro)));
-=======
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
-      driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
-      joystickL.button(11).onTrue((Commands.runOnce(drivebase::zeroGyro))); 
-      driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      driverXbox.leftBumper().onTrue(Commands.none());
-      driverXbox.rightBumper().onTrue(Commands.none());
-    } else
-    {
-      joystickL.button(11).onTrue((Commands.runOnce(drivebase::zeroGyro)));
->>>>>>> Stashed changes
       //driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
      /*driverXbox.b().whileTrue(
           drivebase.driveToPose(
@@ -258,7 +245,7 @@ public class RobotContainer
       
         
       
-        private Rotation2d rotation2d(double d) {
+        /*private Rotation2d rotation2d(double d) {
           // TODO Auto-generated method stub
           throw new UnsupportedOperationException("Unimplemented method 'rotation2d'");
         }

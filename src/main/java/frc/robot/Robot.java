@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -16,10 +15,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.algaesubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-//import frc.robot.commands.coral.BucketMoveB45;
-//import frc.robot.commands.coral.BucketMoveF45;
-import frc.robot.commands.coral.ElevatorDownCommand;
-import frc.robot.commands.coral.ElevatorUpCommand;
 import frc.robot.subsystems.BucketSubsystem;
 import frc.robot.subsystems.KerklunkSubsystem;
 import frc.robot.subsystems.WinchSubsystem;
@@ -28,11 +23,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.TimedRobot;
 import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as

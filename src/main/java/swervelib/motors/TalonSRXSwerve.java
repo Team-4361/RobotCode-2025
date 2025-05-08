@@ -14,7 +14,7 @@ import swervelib.parser.PIDFConfig;
 import swervelib.parser.json.modules.ConversionFactorsJson;
 import swervelib.telemetry.SwerveDriveTelemetry;
 
-/**
+/* 
  * {@link com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX} Swerve Motor.
  */
 public class TalonSRXSwerve extends SwerveMotor
