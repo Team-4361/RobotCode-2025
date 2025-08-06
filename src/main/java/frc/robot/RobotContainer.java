@@ -120,8 +120,8 @@ public class RobotContainer
    private final Command teleopFlightDriveCommand = drivebase.driveFieldOriented(
     SwerveInputStream.of(
         drivebase.getSwerveDrive(),
-        () -> -joystickL.getY() * -1,  // Forward/Backward
-        () -> -joystickL.getX() * -1  // Left/Right
+        () -> -joystickL.getY(),  // Forward/Backward
+        () -> -joystickL.getX()   // Left/Right
     )
     .withControllerRotationAxis(() -> -joystickR.getTwist()) // Rotation using right stick twist
     .deadband(OperatorConstants.DEADBAND) // Apply deadband as a setting

@@ -92,7 +92,7 @@ public class algaesubsystem extends SubsystemBase {
 
     /** Moves algae out (extrudes) */
     public void extrude() {
-        setMotors(-Constants.Algae.ALGAE_SPEED);
+        setMotors(-1.0); //changed speed 6/18/25
     }
 
     /** Pulls algae in (sucks) */
