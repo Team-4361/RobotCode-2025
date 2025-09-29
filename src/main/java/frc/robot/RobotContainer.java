@@ -123,7 +123,7 @@ public class RobotContainer
         () -> -joystickL.getY(),  // Forward/Backward
         () -> -joystickL.getX()   // Left/Right
     )
-    .withControllerRotationAxis(() -> -joystickR.getTwist()) // Rotation using right stick twist
+    .withControllerRotationAxis(() -> -joystickR.getTwist() * 0.95) // Rotation using right stick twist
     .deadband(OperatorConstants.DEADBAND) // Apply deadband as a setting
     .scaleTranslation(0.8)
     .allianceRelativeControl(true)
@@ -210,7 +210,7 @@ public class RobotContainer
       //joystickL.button(2).whileTrue(drivebase.driveToPose(new Pose2d(1.197, 1.058, new Rotation2d(0.925025))));
 
       joystickL.button(4).whileTrue(new KerklunkCommand(kerklunk, 0.0));
-      joystickL.button(6).whileTrue(new KerklunkCommand(kerklunk, 180.0));
+      joystickL.button(6).whileTrue(new KerklunkCommand(kerklunk, 90.0));
       //joystickL.button(3).onTrue(new BucketAuto(bucket));
       //joystickL.button(3).whileTrue(new drivebase.driveToPose(new Pose2d(6.001, 3.974, rotation2d( 5.813))));
             //Xbox controller

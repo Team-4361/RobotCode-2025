@@ -46,7 +46,7 @@ public class algaesubsystem extends SubsystemBase {
         // Initialize PID Controller
         pidController = new PIDController(Constants.Algae.kP, Constants.Algae.kI, Constants.Algae.kD);
         pidController.setTolerance(Constants.Algae.POSITION_TOLERANCE);
-        SmartDashboard.putNumber("algae position", encoder.getPosition());
+        
 
         if (Constants.isDebug) {
             // Send initial PID values to SmartDashboard
@@ -59,19 +59,29 @@ public class algaesubsystem extends SubsystemBase {
 
     public void setMotor(double speed)
     {
-         
-        if (encoder.getPosition() < 0.05  || encoder.getPosition() > 138.0) 
+        sparkMax.set(speed);
+
+        /*if (encoder.getPosition() > -10) 
         {
             sparkMax.stopMotor();
-        }
-        else
-        {
-            sparkMax.set(speed);
-        }
+        }*/
 
-        sparkMax.set(speed);
         
     }
+    public void algaeIntakePos(double speed)
+    {
+
+       if(encoder.getPosition() >= 114)
+       {
+            sparkMax.stopMotor();
+       }
+       else
+       {
+            sparkMax.set(speed);
+       }
+
+    }
+
     /** Sets the target position for PID control */
    /*  public void setTargetPosition(double position) {
         targetPosition = position;
@@ -80,7 +90,7 @@ public class algaesubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        
+        SmartDashboard.putNumber("algae position", encoder.getPosition());
         /* PID stuff that I don't want to run in the background
         double currentPos = encoder.getPosition();
         double pidOutput = pidController.calculate(currentPos, targetPosition);
@@ -92,12 +102,12 @@ public class algaesubsystem extends SubsystemBase {
 
     /** Moves algae out (extrudes) */
     public void extrude() {
-        setMotors(-1.0); //changed speed 6/18/25
+        setMotors(-0.25); //changed speed 6/18/25
     }
 
     /** Pulls algae in (sucks) */
     public void suck() {
-        setMotors(Constants.Algae.ALGAE_SPEED);
+        setMotors(0.55);
     }
 
     /** Stops all motors */
@@ -112,7 +122,7 @@ public class algaesubsystem extends SubsystemBase {
         sparkMax.stopMotor();
     }
 
-    /** Helper method to set left and right motors safely */
+    /** Helper method to set left and Dright motors safely */
     private void setMotors(double speed) {
         leftMotor.set(-speed);
         rightMotor.set(speed);

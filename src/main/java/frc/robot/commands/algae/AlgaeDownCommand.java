@@ -18,7 +18,7 @@ public class AlgaeDownCommand extends Command {
     public void initialize() {
         //algae.setTargetPosition(600);
  
-            algae.setMotor(Constants.Algae.ALGAE_SPEED);
+            algae.setMotor(0.8);
         
         
     }
@@ -27,7 +27,7 @@ public class AlgaeDownCommand extends Command {
     @Override
     public void execute() {
         //algae.setTargetPosition(600);
-            algae.setMotor(Constants.Algae.ALGAE_SPEED);
+            algae.setMotor(0.8);
 
 
     }

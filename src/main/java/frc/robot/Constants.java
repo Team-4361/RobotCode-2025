@@ -42,12 +42,12 @@ public final class Constants
     public static final double KI = 0.00002;
     public static final double KD = 0.0010; 
     public static double L1_POS;
-    public static double L2_POS = 30;
-    public static double L3_POS = 81;
-    public static double L4_POS = 163.0;
+    public static double L2_POS = 36;
+    public static double L3_POS = 90;
+    public static double L4_POS = 81;
     public static final double ELEVATOR_SPEED = 0.70;
-    public static final double UP_LIMIT = 163;
-    public static final double DOWN_LIMIT = 1.5;
+    public static final double UP_LIMIT = 151;
+    public static final double DOWN_LIMIT = 2;
 
     
   }
@@ -103,7 +103,7 @@ public final class Constants
   {
 
     /**  Joystick Deadband */
-    public static final double DEADBAND        = 0.1;
+    public static final double DEADBAND        = 0.25;
     public static final double LEFT_Y_DEADBAND = 0.1;
     public static final double RIGHT_X_DEADBAND = 0.2;
     public static final double TURN_CONSTANT    = 6;
@@ -128,7 +128,7 @@ public static class AE {
     public static final int LEFT_MOTOR_ID = 12;  // Set to your left motor's CAN ID
     public static final int RIGHT_MOTOR_ID = 13; // Set to your right motor's CAN ID
     public static final int ALGAE_MOTOR_ID = 11; // Set to your motor id for the thing that moves algae up and down i gues
-    public static final double ALGAE_SPEED = 0.60; //motorspeed
+    public static final double ALGAE_SPEED = 1.0; //motorspeed
     public static final double POSITION_TOLERANCE = 0.02;
     public static final double kP = 1.0;
     public static final double kI = 0.2;
