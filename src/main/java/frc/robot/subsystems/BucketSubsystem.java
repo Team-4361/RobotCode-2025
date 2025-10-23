@@ -86,8 +86,12 @@ public class BucketSubsystem extends SubsystemBase {
     public void release()
     {
         //invert depending on rotation 
-        coral.set(-0.20); //was -0.3
+        coral.set(-0.30); //was -0.3
 
+    }
+    public void intake()
+    {
+        coral.set(0.15);
     }
 
     public void setMotor()

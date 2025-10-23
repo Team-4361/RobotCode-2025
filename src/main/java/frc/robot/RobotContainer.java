@@ -24,6 +24,7 @@ import frc.robot.commands.algae.AlgaeSuckCommand;
 import frc.robot.commands.algae.AlgaeDownCommand;
 import frc.robot.commands.algae.AlgaeUpCommand;
 import frc.robot.commands.coral.BucketAuto;
+import frc.robot.commands.coral.BucketIntakeCommand;
 import frc.robot.commands.coral.ElevatorDownCommand;
 import frc.robot.commands.coral.ElevatorUpCommand;
 import frc.robot.commands.coral.ReleaseCoralCommand;
@@ -233,7 +234,7 @@ public class RobotContainer
             //driverXbox.b().whileTrue(new elevatorPosUp(elevator,Constants.Coral.L2_POS, 0.25)); // 2 button
             driverXbox.a().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L2_POS, 0.70));
             driverXbox.x().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L3_POS, 0.70)); // 3 button
-            driverXbox.y().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L4_POS, 0.70));
+            driverXbox.y().whileTrue(new BucketIntakeCommand(bucket));
             driverXbox.b().whileTrue(new ReleaseCoralCommand(bucket)); 
             //driverXbox.y().whileTrue(new elevatorPosUp(elevator, Constants.Coral.L4_POS, 1));// 4 button
             driverXbox.povDown().whileTrue(new ElevatorDownCommand(elevator)); // 9 button

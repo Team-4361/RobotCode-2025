@@ -92,7 +92,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void elevatorMoveDown() {
 
-        if ( rEncoder.getPosition() > -5) {
+         if ( rEncoder.getPosition() > -6) {
             leftMotor.stopMotor();
             rightMotor.stopMotor(); //Stops the motor when its at the position
         } else {
